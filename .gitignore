@@ -35,6 +35,9 @@
 *.app
 *.ipa
 
+# Logs
+UpgradeLog.htm
+
 # MacOs Finder config file
 .DS_Store
 
