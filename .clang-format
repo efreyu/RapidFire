@@ -82,9 +82,9 @@ IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '("*.generated.*")'
+  - Regex: '("*.generated.h")'
     Priority: 3
-  - Regex: '(<*.generated.*>)'
+  - Regex: '(<*.generated.h>)'
     Priority: 3
   - Regex: '(<.*>)'
     Priority: 2
