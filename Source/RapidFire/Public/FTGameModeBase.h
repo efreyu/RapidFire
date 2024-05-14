@@ -10,8 +10,6 @@
  * 
  */
 UCLASS()
-class RAPIDFIRE_API AFTGameModeBase : public AGameModeBase
-{
-	GENERATED_BODY()
-	
+class RAPIDFIRE_API AFTGameModeBase : public AGameModeBase {
+    GENERATED_BODY()
 };
