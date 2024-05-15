@@ -7,9 +7,16 @@
 #include "FTGameModeBase.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
-class RAPIDFIRE_API AFTGameModeBase : public AGameModeBase {
-    GENERATED_BODY()
+class RAPIDFIRE_API AFTGameModeBase : public AGameModeBase
+{
+	GENERATED_BODY()
+
+protected:
+	void temp();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ScoreToWin = 5;
 };
