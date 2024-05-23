@@ -51,9 +51,9 @@ UseTab: Always
 SortIncludes: true
 IncludeBlocks: Preserve
 IncludeCategories:
-  - Regex: '("*generated.h")'
+  - Regex: '("*.generated.h")'
     Priority: 3
-  - Regex: '(<*generated.h>)'
+  - Regex: '(<*.generated.h>)'
     Priority: 3
   - Regex: '(<.*>)'
     Priority: 2
