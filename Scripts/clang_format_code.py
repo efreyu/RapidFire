@@ -12,7 +12,7 @@ def format_code(root_dir='../Source', clang_format_path='clang-format'):
     sources_path = os.path.join(cwd, root_dir)
     for dirpath, _, filenames in os.walk(sources_path):
         for filename in filenames:
-            if filename.endswith('.cpp') or filename.endswith('.h'):
+            if filename.endswith('.cpp') or filename.endswith('.h') or filename.endswith('.cs'):
                 file_path = os.path.join(dirpath, filename)
                 print(f"Formatting {file_path}")
                 subprocess.run([clang_format_path, '-i', file_path])

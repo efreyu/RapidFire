@@ -23,7 +23,7 @@ def main():
     staged_files = get_staged_files()
 
     for file in staged_files:
-        if file.endswith('.cpp') or file.endswith('.h'):
+        if file.endswith('.cpp') or file.endswith('.h') or file.endswith('.cs'):
             format_file(file, clang_format_executable)
 
     # Add formatted files back to the staging area
