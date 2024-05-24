@@ -8,7 +8,6 @@ void AFTGameModeBase::temp()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Hello World!"));
 	}
-
 	switch (ScoreToWin)
 	{
 		case 0:

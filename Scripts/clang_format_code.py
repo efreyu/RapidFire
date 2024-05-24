@@ -18,8 +18,10 @@ def format_code(root_dir='../Source', clang_format_path='clang-format'):
                 subprocess.run([clang_format_path, '-i', file_path])
 
 if __name__ == "__main__":
+    # Get the current directory where this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     # Set the root directory to the Unreal Engine project directory
-    root_directory = '../Source'
+    root_directory = os.path.join(script_dir, '../Source')
     # Optionally, set the path to the clang-format executable if it's not in your PATH
     clang_format_executable = 'clang-format'  # or specify the full path if needed
 
