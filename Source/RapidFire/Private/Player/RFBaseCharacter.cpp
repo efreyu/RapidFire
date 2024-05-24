@@ -1,6 +1,6 @@
 // Rapid Fire Game. All Rights Reserved.
 
-#include "RFBaseCharacter.h"
+#include "Player/RFBaseCharacter.h"
 
 // Sets default values
 ARFBaseCharacter::ARFBaseCharacter()

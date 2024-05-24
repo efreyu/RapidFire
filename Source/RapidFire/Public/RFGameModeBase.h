@@ -13,4 +13,6 @@ UCLASS()
 class RAPIDFIRE_API ARFGameModeBase : public AGameModeBase
 {
     GENERATED_BODY()
+public:
+    ARFGameModeBase();
 };
