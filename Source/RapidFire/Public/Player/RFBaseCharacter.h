@@ -9,6 +9,17 @@
 // forward declaration
 class UCameraComponent;
 
+namespace RapidFire::inline Constants
+{
+    namespace Input
+    {
+        constexpr inline auto MoveForward = "MoveForward";
+        constexpr inline auto MoveRight = "MoveRight";
+        constexpr inline auto LookUp = "LookUp";
+        constexpr inline auto TurnAround = "TurnAround";
+    } // namespace Input
+} // namespace RapidFire::inline Constants
+
 UCLASS()
 class RAPIDFIRE_API ARFBaseCharacter : public ACharacter
 {
@@ -27,6 +38,13 @@ protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
+private:
+    void MoveForward(float Amount);
+    void MoveRight(float Amount);
+    void LookUp(float Amount);
+    void TurnAround(float Amount);
+
+protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     UCameraComponent* CameraComponent = nullptr;
 };

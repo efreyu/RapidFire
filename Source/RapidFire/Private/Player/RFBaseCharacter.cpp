@@ -2,6 +2,7 @@
 
 #include "Player/RFBaseCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "Components/InputComponent.h"
 
 // Sets default values
 ARFBaseCharacter::ARFBaseCharacter()
@@ -32,4 +33,28 @@ void ARFBaseCharacter::Tick(float DeltaTime)
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
+    PlayerInputComponent->BindAxis(RapidFire::Input::MoveForward, this, &ARFBaseCharacter::MoveForward);
+    PlayerInputComponent->BindAxis(RapidFire::Input::MoveRight, this, &ARFBaseCharacter::MoveRight);
+    PlayerInputComponent->BindAxis(RapidFire::Input::LookUp, this, &ARFBaseCharacter::LookUp);
+    PlayerInputComponent->BindAxis(RapidFire::Input::TurnAround, this, &ARFBaseCharacter::TurnAround);
+}
+
+void ARFBaseCharacter::MoveForward(float Amount)
+{
+    AddMovementInput(GetActorForwardVector(), Amount);
+}
+
+void ARFBaseCharacter::MoveRight(float Amount)
+{
+    AddMovementInput(GetActorRightVector(), Amount);
+}
+
+void ARFBaseCharacter::LookUp(float Amount)
+{
+    AddControllerPitchInput(Amount);
+}
+
+void ARFBaseCharacter::TurnAround(float Amount)
+{
+    AddControllerYawInput(-Amount);
 }
