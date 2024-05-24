@@ -1,5 +1,4 @@
 StatementMacros: ['UPROPERTY', 'UFUNCTION', 'UCLASS', 'USTRUCT', 'UENUM', 'UINTERFACE', 'GENERATED_BODY']
-Language: Cpp
 BasedOnStyle: LLVM
 
 AccessModifierOffset: -4

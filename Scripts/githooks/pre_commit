@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+
+def get_staged_files():
+    """
+    Get a list of files staged for commit.
+    """
+    result = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=ACM'], stdout=subprocess.PIPE)
+    files = result.stdout.decode('utf-8').splitlines()
+    return files
+
+def format_file(file_path, clang_format_path='clang-format'):
+    """
+    Format a file with clang-format.
+    """
+    print(f"Formatting {file_path}")
+    subprocess.run([clang_format_path, '-i', file_path])
+
+def main():
+    clang_format_executable = 'clang-format'  # or specify the full path if needed
+    staged_files = get_staged_files()
+
+    for file in staged_files:
+        if file.endswith('.cpp') or file.endswith('.h'):
+            format_file(file, clang_format_executable)
+
+    # Add formatted files back to the staging area
+    subprocess.run(['git', 'add'] + staged_files)
+
+if __name__ == "__main__":
+    main()
