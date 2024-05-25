@@ -3,17 +3,27 @@
 #include "Player/RFBaseCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 ARFBaseCharacter::ARFBaseCharacter()
 {
-    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
+
+    SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArmComponent");
+    check(SpringArmComponent);
+    if (SpringArmComponent)
+    {
+        SpringArmComponent->SetupAttachment(GetRootComponent());
+        SpringArmComponent->TargetArmLength = 300.0f;
+        SpringArmComponent->bUsePawnControlRotation = true;
+    }
+
     CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
     check(CameraComponent);
     if (CameraComponent)
     {
-        CameraComponent->SetupAttachment(GetRootComponent());
+        CameraComponent->SetupAttachment(SpringArmComponent);
     }
 }
 
@@ -33,10 +43,11 @@ void ARFBaseCharacter::Tick(float DeltaTime)
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
+
     PlayerInputComponent->BindAxis(RapidFire::Input::MoveForward, this, &ARFBaseCharacter::MoveForward);
     PlayerInputComponent->BindAxis(RapidFire::Input::MoveRight, this, &ARFBaseCharacter::MoveRight);
-    PlayerInputComponent->BindAxis(RapidFire::Input::LookUp, this, &ARFBaseCharacter::LookUp);
-    PlayerInputComponent->BindAxis(RapidFire::Input::TurnAround, this, &ARFBaseCharacter::TurnAround);
+    PlayerInputComponent->BindAxis(RapidFire::Input::LookUp, this, &ARFBaseCharacter::AddControllerPitchInput);
+    PlayerInputComponent->BindAxis(RapidFire::Input::TurnAround, this, &ARFBaseCharacter::AddControllerYawInput);
 }
 
 void ARFBaseCharacter::MoveForward(float Amount)
@@ -47,14 +58,4 @@ void ARFBaseCharacter::MoveForward(float Amount)
 void ARFBaseCharacter::MoveRight(float Amount)
 {
     AddMovementInput(GetActorRightVector(), Amount);
-}
-
-void ARFBaseCharacter::LookUp(float Amount)
-{
-    AddControllerPitchInput(Amount);
-}
-
-void ARFBaseCharacter::TurnAround(float Amount)
-{
-    AddControllerYawInput(-Amount);
 }

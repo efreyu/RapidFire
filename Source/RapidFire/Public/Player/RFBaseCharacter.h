@@ -8,6 +8,7 @@
 
 // forward declaration
 class UCameraComponent;
+class USpringArmComponent;
 
 namespace RapidFire::inline Constants
 {
@@ -41,10 +42,11 @@ protected:
 private:
     void MoveForward(float Amount);
     void MoveRight(float Amount);
-    void LookUp(float Amount);
-    void TurnAround(float Amount);
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     UCameraComponent* CameraComponent = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+    USpringArmComponent* SpringArmComponent = nullptr;
 };
