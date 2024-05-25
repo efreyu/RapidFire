@@ -14,10 +14,11 @@ namespace RapidFire::inline Constants
 {
     namespace Input
     {
-        constexpr inline auto MoveForward = "MoveForward";
-        constexpr inline auto MoveRight = "MoveRight";
-        constexpr inline auto LookUp = "LookUp";
-        constexpr inline auto TurnAround = "TurnAround";
+        constexpr inline auto MoveForwardAxis = "MoveForward";
+        constexpr inline auto MoveRightAxis = "MoveRight";
+        constexpr inline auto LookUpAxis = "LookUp";
+        constexpr inline auto TurnAroundAxis = "TurnAround";
+        constexpr inline auto JumpAction = "Jump";
     } // namespace Input
 } // namespace RapidFire::inline Constants
 
@@ -40,8 +41,8 @@ protected:
     virtual void BeginPlay() override;
 
 private:
-    void MoveForward(float Amount);
-    void MoveRight(float Amount);
+    void OnMoveForwardAxis(float Amount);
+    void OnMoveRightAxis(float Amount);
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")

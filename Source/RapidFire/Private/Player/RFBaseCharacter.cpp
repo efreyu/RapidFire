@@ -44,18 +44,19 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-    PlayerInputComponent->BindAxis(RapidFire::Input::MoveForward, this, &ARFBaseCharacter::MoveForward);
-    PlayerInputComponent->BindAxis(RapidFire::Input::MoveRight, this, &ARFBaseCharacter::MoveRight);
-    PlayerInputComponent->BindAxis(RapidFire::Input::LookUp, this, &ARFBaseCharacter::AddControllerPitchInput);
-    PlayerInputComponent->BindAxis(RapidFire::Input::TurnAround, this, &ARFBaseCharacter::AddControllerYawInput);
+    PlayerInputComponent->BindAxis(RapidFire::Input::MoveForwardAxis, this, &ARFBaseCharacter::OnMoveForwardAxis);
+    PlayerInputComponent->BindAxis(RapidFire::Input::MoveRightAxis, this, &ARFBaseCharacter::OnMoveRightAxis);
+    PlayerInputComponent->BindAxis(RapidFire::Input::LookUpAxis, this, &ARFBaseCharacter::AddControllerPitchInput);
+    PlayerInputComponent->BindAxis(RapidFire::Input::TurnAroundAxis, this, &ARFBaseCharacter::AddControllerYawInput);
+    PlayerInputComponent->BindAction(RapidFire::Input::JumpAction, IE_Pressed, this, &ARFBaseCharacter::Jump);
 }
 
-void ARFBaseCharacter::MoveForward(float Amount)
+void ARFBaseCharacter::OnMoveForwardAxis(float Amount)
 {
     AddMovementInput(GetActorForwardVector(), Amount);
 }
 
-void ARFBaseCharacter::MoveRight(float Amount)
+void ARFBaseCharacter::OnMoveRightAxis(float Amount)
 {
     AddMovementInput(GetActorRightVector(), Amount);
 }
