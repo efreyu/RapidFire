@@ -48,7 +48,25 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
     PlayerInputComponent->BindAxis(RapidFire::Input::MoveRightAxis, this, &ARFBaseCharacter::OnMoveRightAxis);
     PlayerInputComponent->BindAxis(RapidFire::Input::LookUpAxis, this, &ARFBaseCharacter::AddControllerPitchInput);
     PlayerInputComponent->BindAxis(RapidFire::Input::TurnAroundAxis, this, &ARFBaseCharacter::AddControllerYawInput);
-    PlayerInputComponent->BindAction(RapidFire::Input::JumpAction, IE_Pressed, this, &ARFBaseCharacter::Jump);
+
+    FInputActionBinding JumpPressedBinding(RapidFire::Input::JumpAction, IE_Pressed);
+    JumpPressedBinding.ActionDelegate.GetDelegateForManualSet().BindLambda([this]() {
+        Jump();
+        OnJumpStarted.Broadcast();
+        UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info %s"), *GetName(), *FString::Printf(TEXT("Jump Pressed")));
+    });
+    PlayerInputComponent->AddActionBinding(JumpPressedBinding);
+
+    FInputActionBinding SprintPressedBinding(RapidFire::Input::SprintAction, IE_Pressed);
+    SprintPressedBinding.ActionDelegate.GetDelegateForManualSet().BindLambda([this]() {
+        OnSprintAction(true);
+    });
+    PlayerInputComponent->AddActionBinding(SprintPressedBinding);
+    FInputActionBinding SprintReleasedBinding(RapidFire::Input::SprintAction, IE_Released);
+    SprintPressedBinding.ActionDelegate.GetDelegateForManualSet().BindLambda([this]() {
+        OnSprintAction(false);
+    });
+    PlayerInputComponent->AddActionBinding(SprintPressedBinding);
 }
 
 void ARFBaseCharacter::OnMoveForwardAxis(float Amount)
@@ -59,4 +77,13 @@ void ARFBaseCharacter::OnMoveForwardAxis(float Amount)
 void ARFBaseCharacter::OnMoveRightAxis(float Amount)
 {
     AddMovementInput(GetActorRightVector(), Amount);
+}
+
+void ARFBaseCharacter::OnSprintAction(bool Pressed)
+{
+    UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info %s"), *GetName(), *FString::Printf(TEXT("Sprint %s"), Pressed ? TEXT("Pressed") : TEXT("Released")));
+    if (Pressed)
+        OnSprintStarted.Broadcast();
+    else
+        OnSprintStopped.Broadcast();
 }

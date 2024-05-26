@@ -14,13 +14,18 @@ namespace RapidFire::inline Constants
 {
     namespace Input
     {
-        constexpr inline auto MoveForwardAxis = "MoveForward";
-        constexpr inline auto MoveRightAxis = "MoveRight";
-        constexpr inline auto LookUpAxis = "LookUp";
-        constexpr inline auto TurnAroundAxis = "TurnAround";
-        constexpr inline auto JumpAction = "Jump";
+        constexpr inline auto MoveForwardAxis{ "MoveForward" };
+        constexpr inline auto MoveRightAxis{ "MoveRight" };
+        constexpr inline auto LookUpAxis{ "LookUp" };
+        constexpr inline auto TurnAroundAxis{ "TurnAround" };
+        constexpr inline auto JumpAction{ "Jump" };
+        constexpr inline auto SprintAction{ "Sprint" };
     } // namespace Input
 } // namespace RapidFire::inline Constants
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnJumpStarted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSprintStarted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSprintStopped);
 
 UCLASS()
 class RAPIDFIRE_API ARFBaseCharacter : public ACharacter
@@ -43,6 +48,7 @@ protected:
 private:
     void OnMoveForwardAxis(float Amount);
     void OnMoveRightAxis(float Amount);
+    void OnSprintAction(bool Pressed);
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -50,4 +56,11 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     USpringArmComponent* SpringArmComponent = nullptr;
+
+    UPROPERTY(BlueprintAssignable, Category = "Movement|Events")
+    FOnJumpStarted OnJumpStarted;
+    UPROPERTY(BlueprintAssignable, Category = "Movement|Events")
+    FOnSprintStarted OnSprintStarted;
+    UPROPERTY(BlueprintAssignable, Category = "Movement|Events")
+    FOnSprintStopped OnSprintStopped;
 };
