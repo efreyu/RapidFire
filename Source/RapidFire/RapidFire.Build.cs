@@ -13,7 +13,11 @@ public class RapidFire : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new string[] {});
 
-        PublicIncludePaths.AddRange(new string[] { "RapidFire/Public/Player" });
+        PublicIncludePaths.AddRange(new string[]
+        {
+            "RapidFire/Public/Player",
+            "RapidFire/Public/Components"
+        });
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

@@ -32,7 +32,7 @@ class RAPIDFIRE_API ARFBaseCharacter : public ACharacter
 
 public:
     // Sets default values for this character's properties
-    ARFBaseCharacter();
+    ARFBaseCharacter(const FObjectInitializer& ObjectInitializer);
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
@@ -58,7 +58,7 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     USpringArmComponent* SpringArmComponent = nullptr;
 
-    UPROPERTY(BlueprintAssignable, Category = "Movement|Events")
+    UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnJumpStarted OnJumpStarted;
 
 private:
