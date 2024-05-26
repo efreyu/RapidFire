@@ -63,10 +63,10 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
     });
     PlayerInputComponent->AddActionBinding(SprintPressedBinding);
     FInputActionBinding SprintReleasedBinding(RapidFire::Input::SprintAction, IE_Released);
-    SprintPressedBinding.ActionDelegate.GetDelegateForManualSet().BindLambda([this]() {
+    SprintReleasedBinding.ActionDelegate.GetDelegateForManualSet().BindLambda([this]() {
         OnSprintAction(false);
     });
-    PlayerInputComponent->AddActionBinding(SprintPressedBinding);
+    PlayerInputComponent->AddActionBinding(SprintReleasedBinding);
 }
 
 void ARFBaseCharacter::OnMoveForwardAxis(float Amount)
