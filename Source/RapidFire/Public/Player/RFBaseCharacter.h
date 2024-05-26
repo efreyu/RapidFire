@@ -24,8 +24,6 @@ namespace RapidFire::inline Constants
 } // namespace RapidFire::inline Constants
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnJumpStarted);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSprintStarted);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSprintStopped);
 
 UCLASS()
 class RAPIDFIRE_API ARFBaseCharacter : public ACharacter
@@ -40,6 +38,9 @@ public:
 
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+    UFUNCTION(BlueprintCallable, Category = "Movement")
+    bool IsRunning() const;
 
 protected:
     // Called when the game starts or when spawned
@@ -59,8 +60,8 @@ protected:
 
     UPROPERTY(BlueprintAssignable, Category = "Movement|Events")
     FOnJumpStarted OnJumpStarted;
-    UPROPERTY(BlueprintAssignable, Category = "Movement|Events")
-    FOnSprintStarted OnSprintStarted;
-    UPROPERTY(BlueprintAssignable, Category = "Movement|Events")
-    FOnSprintStopped OnSprintStopped;
+
+private:
+    bool bIsGoingToSprint = false;
+    bool bIsMovingForward = false;
 };

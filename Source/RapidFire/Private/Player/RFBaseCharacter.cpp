@@ -71,6 +71,7 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void ARFBaseCharacter::OnMoveForwardAxis(float Amount)
 {
+    bIsMovingForward = Amount > 0.0f;
     AddMovementInput(GetActorForwardVector(), Amount);
 }
 
@@ -81,9 +82,10 @@ void ARFBaseCharacter::OnMoveRightAxis(float Amount)
 
 void ARFBaseCharacter::OnSprintAction(bool Pressed)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info %s"), *GetName(), *FString::Printf(TEXT("Sprint %s"), Pressed ? TEXT("Pressed") : TEXT("Released")));
-    if (Pressed)
-        OnSprintStarted.Broadcast();
-    else
-        OnSprintStopped.Broadcast();
+    bIsGoingToSprint = Pressed;
+}
+
+bool ARFBaseCharacter::IsRunning() const
+{
+    return bIsMovingForward && bIsGoingToSprint && !GetVelocity().IsZero();
 }
