@@ -55,7 +55,6 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
     JumpPressedBinding.ActionDelegate.GetDelegateForManualSet().BindLambda([this]() {
         Jump();
         OnJumpStarted.Broadcast();
-        UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info %s"), *GetName(), *FString::Printf(TEXT("Jump Pressed")));
     });
     PlayerInputComponent->AddActionBinding(JumpPressedBinding);
 
