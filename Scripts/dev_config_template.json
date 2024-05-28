@@ -10,7 +10,14 @@
     "game_version": "5.4",
     "engine_path": "/Users/Shared/Epic Games/UE_{game_version}",
     "build_tool_relative_path": "Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool",
-    "generate_project_script": "/Users/Shared/Epic\\ Games/UE_{game_version}/Engine/Build/BatchFiles/Mac/GenerateProjectFiles.sh -game -project=\"{current_path}/${uproject_file}\"",
+    "generate_project_script": "/Users/Shared/Epic\\ Games/UE_{game_version}/Engine/Build/BatchFiles/Mac/GenerateProjectFiles.sh",
+    "project_name": "RapidFire.uproject"
+  },
+  "linux": {
+    "game_version": "todo: not configured yet",
+    "engine_path": "/Users/Shared/Epic Games/UE_{game_version}",
+    "build_tool_relative_path": "Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool",
+    "generate_project_script": "/Users/Shared/Epic\\ Games/UE_{game_version}/Engine/Build/BatchFiles/Mac/GenerateProjectFiles.sh",
     "project_name": "RapidFire.uproject"
   }
 }
