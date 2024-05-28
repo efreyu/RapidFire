@@ -99,6 +99,6 @@ float ARFBaseCharacter::GetMovementDirection() const
     const auto AngleBetween = FMath::Acos(FVector::DotProduct(GetActorForwardVector(), Velocity));
     const auto CrossProduct = FVector::CrossProduct(GetActorForwardVector(), Velocity);
     const auto Radians = FMath::RadiansToDegrees(AngleBetween);
-    // UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info %f"), *GetName(), CrossProduct.Z);
-    return CrossProduct.IsZero() ? Radians : Radians * CrossProduct.Z;
+    UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info %f"), *GetName(), CrossProduct.IsZero() ? Radians : Radians * FMath::Sign(CrossProduct.Z));
+    return CrossProduct.IsZero() ? Radians : Radians * FMath::Sign(CrossProduct.Z);
 }
