@@ -31,12 +31,9 @@ class RAPIDFIRE_API ARFBaseCharacter : public ACharacter
     GENERATED_BODY()
 
 public:
-    // Sets default values for this character's properties
     ARFBaseCharacter(const FObjectInitializer& ObjectInitializer);
-    // Called every frame
     virtual void Tick(float DeltaTime) override;
 
-    // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
     UFUNCTION(BlueprintCallable, Category = "Movement")
@@ -45,7 +42,6 @@ public:
     float GetMovementDirection() const;
 
 protected:
-    // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
 private:

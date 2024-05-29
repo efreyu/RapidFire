@@ -50,6 +50,7 @@ UpgradeLog.htm
 *.sdf
 *.VC.db
 *.VC.opendb
+*.DotSettings.user
 
 # Precompiled Assets
 SourceArt/**/*.png

@@ -1,4 +1,4 @@
-// Rapid Fire Game.
+// Rapid Fire Game. All Rights Reserved.
 
 #pragma once
 

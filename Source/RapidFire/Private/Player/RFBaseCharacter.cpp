@@ -6,7 +6,6 @@
 #include "Components/RFCharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
-// Sets default values
 ARFBaseCharacter::ARFBaseCharacter(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<URFCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
@@ -29,19 +28,16 @@ ARFBaseCharacter::ARFBaseCharacter(const FObjectInitializer& ObjectInitializer)
     }
 }
 
-// Called when the game starts or when spawned
 void ARFBaseCharacter::BeginPlay()
 {
     Super::BeginPlay();
 }
 
-// Called every frame
 void ARFBaseCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 }
 
-// Called to bind functionality to input
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
