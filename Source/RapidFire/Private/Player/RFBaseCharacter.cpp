@@ -6,7 +6,10 @@
 #include "Components/RFCharacterMovementComponent.h"
 #include "Components/RFHealthComponent.h"
 #include "Components/TextRenderComponent.h"
+#include "Engine/DamageEvents.h"
 #include "GameFramework/SpringArmComponent.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogBaseCharacter, All, All);
 
 ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<URFCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
