@@ -15,9 +15,10 @@ class RAPIDFIRE_API URFCharacterMovementComponent : public UCharacterMovementCom
     GENERATED_BODY()
 
 public:
+    URFCharacterMovementComponent(FObjectInitializer const& ObjectInitializer = FObjectInitializer::Get());
     virtual float GetMaxSpeed() const override;
 
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement", Meta = (ClampMin = 1.5f, ClampMax = 3.0f))
-    float RunSpeedModifier = 1.5f;
+    float RunSpeedModifier;
 };

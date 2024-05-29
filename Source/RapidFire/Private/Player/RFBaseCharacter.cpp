@@ -13,6 +13,12 @@ DEFINE_LOG_CATEGORY_STATIC(LogBaseCharacter, All, All);
 
 ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<URFCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+    , CameraComponent(nullptr)
+    , SpringArmComponent(nullptr)
+    , HealthComponent(nullptr)
+    , TextRenderComponent(nullptr)
+    , bIsGoingToSprint(false)
+    , bIsMovingForward(false)
 {
     PrimaryActorTick.bCanEverTick = true;
 

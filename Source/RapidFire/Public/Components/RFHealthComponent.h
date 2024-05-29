@@ -27,8 +27,8 @@ private:
 
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Health", Meta = (ClampMin = 1.0f, ClampMax = 100.0f))
-    float MaxHealth = 100.0f;
+    float MaxHealth;
 
 private:
-    float Health = 0.0f;
+    float Health;
 };

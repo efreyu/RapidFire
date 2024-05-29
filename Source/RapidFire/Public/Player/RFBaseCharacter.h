@@ -53,21 +53,21 @@ private:
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    UCameraComponent* CameraComponent = nullptr;
+    UCameraComponent* CameraComponent;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    USpringArmComponent* SpringArmComponent = nullptr;
+    USpringArmComponent* SpringArmComponent;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    URFHealthComponent* HealthComponent = nullptr;
+    URFHealthComponent* HealthComponent;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    UTextRenderComponent* TextRenderComponent = nullptr;
+    UTextRenderComponent* TextRenderComponent;
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnJumpStarted OnJumpStarted;
 
 private:
-    bool bIsGoingToSprint = false;
-    bool bIsMovingForward = false;
+    bool bIsGoingToSprint;
+    bool bIsMovingForward;
 };
