@@ -27,4 +27,7 @@ protected:
 
 private:
     float Health = 0.0f;
+
+public:
+    static FName HealthComponentName;
 };

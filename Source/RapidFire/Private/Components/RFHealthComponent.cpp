@@ -2,6 +2,8 @@
 
 #include "Components/RFHealthComponent.h"
 
+FName URFHealthComponent::HealthComponentName(TEXT("HealthComponent"));
+
 URFHealthComponent::URFHealthComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;

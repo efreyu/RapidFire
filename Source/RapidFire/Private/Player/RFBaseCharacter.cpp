@@ -14,7 +14,6 @@ ARFBaseCharacter::ARFBaseCharacter(const FObjectInitializer& ObjectInitializer)
     PrimaryActorTick.bCanEverTick = true;
 
     SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArmComponent");
-    check(SpringArmComponent);
     if (SpringArmComponent)
     {
         SpringArmComponent->SetupAttachment(GetRootComponent());
@@ -23,37 +22,43 @@ ARFBaseCharacter::ARFBaseCharacter(const FObjectInitializer& ObjectInitializer)
     }
 
     CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
-    check(CameraComponent);
     if (CameraComponent)
     {
         CameraComponent->SetupAttachment(SpringArmComponent);
     }
 
-    HealthComponent = CreateDefaultSubobject<URFHealthComponent>("HealthComponent");
-    check(HealthComponent);
+    HealthComponent = CreateDefaultSubobject<URFHealthComponent>(URFHealthComponent::HealthComponentName);
     TextRenderComponent = CreateDefaultSubobject<UTextRenderComponent>("TextRenderComponent");
-    check(TextRenderComponent);
     if (TextRenderComponent)
     {
         TextRenderComponent->SetupAttachment(GetRootComponent());
-        TextRenderComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 100.0f));
+        TextRenderComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 120.0f));
         TextRenderComponent->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
         TextRenderComponent->SetHorizontalAlignment(EHTA_Center);
         TextRenderComponent->SetVerticalAlignment(EVRTA_TextCenter);
         TextRenderComponent->SetTextRenderColor(FColor::Cyan);
+        TextRenderComponent->SetText(FText::FromString(TEXT("0")));
     }
 }
 
 void ARFBaseCharacter::BeginPlay()
 {
     Super::BeginPlay();
+    // prevent blueprint overrides
+    check(SpringArmComponent);
+    check(CameraComponent);
+    check(HealthComponent);
+    check(TextRenderComponent);
 }
 
 void ARFBaseCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-    const auto Health = HealthComponent->GetHealth();
-    TextRenderComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
+    if (HealthComponent && TextRenderComponent)
+    {
+        const auto Health = HealthComponent->GetHealth();
+        TextRenderComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
+    }
 }
 
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
