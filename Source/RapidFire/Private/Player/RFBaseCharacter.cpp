@@ -62,7 +62,6 @@ void ARFBaseCharacter::Tick(float DeltaTime)
         auto const Health = HealthComponent->GetHealth();
         TextRenderComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
     }
-    TakeDamage(0.1f, FDamageEvent{}, Controller, this);
 }
 
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
