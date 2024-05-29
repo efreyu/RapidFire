@@ -35,4 +35,7 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DevDamageActor")
     bool DoFullDamage;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DevDamageActor")
+    TSubclassOf<UDamageType> DamageType;
 };

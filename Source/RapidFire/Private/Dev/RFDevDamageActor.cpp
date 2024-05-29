@@ -25,5 +25,5 @@ void ARFDevDamageActor::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
     DrawDebugSphere(GetWorld(), GetActorLocation(), Radius, 24, Color, false, -1.0f, 0, 1.0f);
-    UGameplayStatics::ApplyRadialDamage(GetWorld(), Damage, GetActorLocation(), Radius, nullptr, TArray<AActor*>(), this, nullptr, DoFullDamage, ECollisionChannel::ECC_Visibility);
+    UGameplayStatics::ApplyRadialDamage(GetWorld(), Damage, GetActorLocation(), Radius, DamageType, TArray<AActor*>(), this, nullptr, DoFullDamage, ECollisionChannel::ECC_Visibility);
 }
