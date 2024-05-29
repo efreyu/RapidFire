@@ -8,7 +8,7 @@
 #include "Components/TextRenderComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
-ARFBaseCharacter::ARFBaseCharacter(const FObjectInitializer& ObjectInitializer)
+ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<URFCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
@@ -56,9 +56,10 @@ void ARFBaseCharacter::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
     if (HealthComponent && TextRenderComponent)
     {
-        const auto Health = HealthComponent->GetHealth();
+        auto const Health = HealthComponent->GetHealth();
         TextRenderComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
     }
+    TakeDamage(0.1f, FDamageEvent{}, Controller, this);
 }
 
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -114,9 +115,9 @@ float ARFBaseCharacter::GetMovementDirection() const
 {
     if (GetVelocity().IsZero())
         return 0.f;
-    const auto Velocity = GetVelocity().GetSafeNormal();
-    const auto AngleBetween = FMath::Acos(FVector::DotProduct(GetActorForwardVector(), Velocity));
-    const auto CrossProduct = FVector::CrossProduct(GetActorForwardVector(), Velocity);
-    const auto Radians = FMath::RadiansToDegrees(AngleBetween);
+    auto const Velocity = GetVelocity().GetSafeNormal();
+    auto const AngleBetween = FMath::Acos(FVector::DotProduct(GetActorForwardVector(), Velocity));
+    auto const CrossProduct = FVector::CrossProduct(GetActorForwardVector(), Velocity);
+    auto const Radians = FMath::RadiansToDegrees(AngleBetween);
     return static_cast<float>(FMath::Abs(CrossProduct.Z) == 0.0 ? Radians : Radians * FMath::Sign(CrossProduct.Z));
 }

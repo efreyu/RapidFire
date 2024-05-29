@@ -63,3 +63,6 @@ IncludeCategories:
     Priority: 1
 #IncludeIsMainRegex: '(Test)?$'
 #IncludeIsMainSourceRegex: '".*"?'
+
+QualifierOrder: ['inline', 'static', 'type', 'const']
+QualifierAlignment: Custom

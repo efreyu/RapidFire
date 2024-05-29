@@ -33,7 +33,7 @@ class RAPIDFIRE_API ARFBaseCharacter : public ACharacter
     GENERATED_BODY()
 
 public:
-    ARFBaseCharacter(const FObjectInitializer& ObjectInitializer);
+    ARFBaseCharacter(FObjectInitializer const& ObjectInitializer);
     virtual void Tick(float DeltaTime) override;
 
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

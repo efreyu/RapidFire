@@ -13,8 +13,7 @@ public class RapidFire : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new string[] {});
 
-        PublicIncludePaths.AddRange(new string[]
-        {
+        PublicIncludePaths.AddRange(new string[] {
             "RapidFire/Public/Player",
             "RapidFire/Public/Components"
         });
