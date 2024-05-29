@@ -9,6 +9,8 @@
 // forward declaration
 class UCameraComponent;
 class USpringArmComponent;
+class URFHealthComponent;
+class UTextRenderComponent;
 
 namespace RapidFire::inline Constants
 {
@@ -55,6 +57,12 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     USpringArmComponent* SpringArmComponent = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+    URFHealthComponent* HealthComponent = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+    UTextRenderComponent* TextRenderComponent = nullptr;
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnJumpStarted OnJumpStarted;

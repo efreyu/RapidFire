@@ -4,15 +4,11 @@
 
 URFHealthComponent::URFHealthComponent()
 {
-    PrimaryComponentTick.bCanEverTick = true;
+    PrimaryComponentTick.bCanEverTick = false;
 }
 
 void URFHealthComponent::BeginPlay()
 {
     Super::BeginPlay();
-}
-
-void URFHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-    Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+    Health = MaxHealth;
 }

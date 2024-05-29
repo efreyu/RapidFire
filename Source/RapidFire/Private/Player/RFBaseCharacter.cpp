@@ -4,6 +4,8 @@
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "Components/RFCharacterMovementComponent.h"
+#include "Components/RFHealthComponent.h"
+#include "Components/TextRenderComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
 ARFBaseCharacter::ARFBaseCharacter(const FObjectInitializer& ObjectInitializer)
@@ -26,6 +28,20 @@ ARFBaseCharacter::ARFBaseCharacter(const FObjectInitializer& ObjectInitializer)
     {
         CameraComponent->SetupAttachment(SpringArmComponent);
     }
+
+    HealthComponent = CreateDefaultSubobject<URFHealthComponent>("HealthComponent");
+    check(HealthComponent);
+    TextRenderComponent = CreateDefaultSubobject<UTextRenderComponent>("TextRenderComponent");
+    check(TextRenderComponent);
+    if (TextRenderComponent)
+    {
+        TextRenderComponent->SetupAttachment(GetRootComponent());
+        TextRenderComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 100.0f));
+        TextRenderComponent->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
+        TextRenderComponent->SetHorizontalAlignment(EHTA_Center);
+        TextRenderComponent->SetVerticalAlignment(EVRTA_TextCenter);
+        TextRenderComponent->SetTextRenderColor(FColor::Cyan);
+    }
 }
 
 void ARFBaseCharacter::BeginPlay()
@@ -36,6 +52,8 @@ void ARFBaseCharacter::BeginPlay()
 void ARFBaseCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+    const auto Health = HealthComponent->GetHealth();
+    TextRenderComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
 }
 
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
