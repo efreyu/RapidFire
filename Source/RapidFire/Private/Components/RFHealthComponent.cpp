@@ -14,6 +14,7 @@ void URFHealthComponent::BeginPlay()
 {
     Super::BeginPlay();
     Health = MaxHealth;
+    OnHealthChanged.Broadcast(Health);
     if (auto const Owner = GetOwner())
     {
         Owner->OnTakeAnyDamage.AddDynamic(this, &URFHealthComponent::OnTakeAnyDamage);
@@ -27,6 +28,7 @@ void URFHealthComponent::OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDa
         return;
     }
     Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
+    OnHealthChanged.Broadcast(Health);
     if (IsDead())
     {
         OnDeath.Broadcast();

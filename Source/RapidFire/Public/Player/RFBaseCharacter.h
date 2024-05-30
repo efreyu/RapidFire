@@ -51,6 +51,7 @@ private:
     void OnMoveRightAxis(float Amount);
     void OnSprintAction(bool Pressed);
     void OnDeath();
+    void OnHealthChanged(float Health);
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")

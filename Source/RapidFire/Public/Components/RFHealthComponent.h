@@ -15,6 +15,7 @@ namespace RapidFire::inline Constants
 } // namespace RapidFire::inline Constants
 
 DECLARE_MULTICAST_DELEGATE(FOnDeath);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, float);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RAPIDFIRE_API URFHealthComponent : public UActorComponent
@@ -30,7 +31,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Health")
     bool IsDead() const { return Health <= 0.0f; }
 
-    FOnDeath OnDeath;
+    FOnDeath         OnDeath;
+    FOnHealthChanged OnHealthChanged;
 
 protected:
     virtual void BeginPlay() override;

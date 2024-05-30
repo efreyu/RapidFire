@@ -1,6 +1,7 @@
 // Rapid Fire Game. All Rights Reserved.
 
 #include "Player/RFBaseCharacter.h"
+
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "Components/RFCharacterMovementComponent.h"
@@ -49,22 +50,20 @@ void ARFBaseCharacter::BeginPlay()
 {
     Super::BeginPlay();
     // prevent blueprint overrides
+    check(GetCharacterMovement());
     check(SpringArmComponent);
     check(CameraComponent);
     check(HealthComponent);
     check(TextRenderComponent);
 
+    OnHealthChanged(HealthComponent->GetHealth());
     HealthComponent->OnDeath.AddUObject(this, &ARFBaseCharacter::OnDeath);
+    HealthComponent->OnHealthChanged.AddUObject(this, &ARFBaseCharacter::OnHealthChanged);
 }
 
 void ARFBaseCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-    if (HealthComponent && TextRenderComponent)
-    {
-        auto const Health = HealthComponent->GetHealth();
-        TextRenderComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
-    }
 }
 
 void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -116,7 +115,18 @@ void ARFBaseCharacter::OnDeath()
     if (DeathAnimMontage)
     {
         PlayAnimMontage(DeathAnimMontage);
+        GetCharacterMovement()->DisableMovement();
+        SetLifeSpan(5.f);
     }
+}
+
+void ARFBaseCharacter::OnHealthChanged(float Health)
+{
+    if (!TextRenderComponent)
+    {
+        return;
+    }
+    TextRenderComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
 }
 
 bool ARFBaseCharacter::IsRunning() const
