@@ -8,8 +8,13 @@
 
 namespace RapidFire::inline Constants
 {
-    constexpr inline auto HealthComponentName{ TEXT("HealthComponent") };
+    namespace Components
+    {
+        constexpr inline auto HealthComponentName{ TEXT("HealthComponent") };
+    } // namespace Components
 } // namespace RapidFire::inline Constants
+
+DECLARE_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RAPIDFIRE_API URFHealthComponent : public UActorComponent
@@ -22,6 +27,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Health")
     float GetHealth() const { return Health; }
 
+    UFUNCTION(BlueprintCallable, Category = "Health")
+    bool IsDead() const { return Health <= 0.0f; }
+
+    FOnDeath OnDeath;
+
 protected:
     virtual void BeginPlay() override;
 
@@ -30,7 +40,7 @@ private:
     void OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDamageType const* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
 protected:
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Health", Meta = (ClampMin = 1.0f, ClampMax = 100.0f))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", Meta = (ClampMin = 1.0f, ClampMax = 100.0f))
     float MaxHealth;
 
 private:

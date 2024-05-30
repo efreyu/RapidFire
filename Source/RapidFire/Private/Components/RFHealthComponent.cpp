@@ -1,8 +1,6 @@
 // Rapid Fire Game. All Rights Reserved.
 
 #include "Components/RFHealthComponent.h"
-#include "Dev/RFFireDamageType.h"
-#include "Dev/RFIceDamageType.h"
 #include "GameFramework/Actor.h"
 
 URFHealthComponent::URFHealthComponent()
@@ -24,10 +22,13 @@ void URFHealthComponent::BeginPlay()
 
 void URFHealthComponent::OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDamageType const* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-    Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
-    if (DamageType && (DamageType->IsA(URFFireDamageType::StaticClass()) || DamageType->IsA(URFIceDamageType::StaticClass())))
+    if (Damage <= 0.0f || IsDead())
     {
-        // OnFireDamage.Broadcast();
-        UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Fire or ice"), *GetName());
+        return;
+    }
+    Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
+    if (IsDead())
+    {
+        OnDeath.Broadcast();
     }
 }

@@ -50,6 +50,7 @@ private:
     void OnMoveForwardAxis(float Amount);
     void OnMoveRightAxis(float Amount);
     void OnSprintAction(bool Pressed);
+    void OnDeath();
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -63,6 +64,9 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     UTextRenderComponent* TextRenderComponent;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Animation")
+    UAnimMontage* DeathAnimMontage;
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnJumpStarted OnJumpStarted;

@@ -17,6 +17,7 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
     , SpringArmComponent(nullptr)
     , HealthComponent(nullptr)
     , TextRenderComponent(nullptr)
+    , DeathAnimMontage(nullptr)
     , bIsGoingToSprint(false)
     , bIsMovingForward(false)
 {
@@ -36,17 +37,11 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
         CameraComponent->SetupAttachment(SpringArmComponent);
     }
 
-    HealthComponent = CreateDefaultSubobject<URFHealthComponent>(RapidFire::HealthComponentName);
+    HealthComponent = CreateDefaultSubobject<URFHealthComponent>(RapidFire::Components::HealthComponentName);
     TextRenderComponent = CreateDefaultSubobject<UTextRenderComponent>("TextRenderComponent");
     if (TextRenderComponent)
     {
         TextRenderComponent->SetupAttachment(GetRootComponent());
-        TextRenderComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 120.0f));
-        TextRenderComponent->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
-        TextRenderComponent->SetHorizontalAlignment(EHTA_Center);
-        TextRenderComponent->SetVerticalAlignment(EVRTA_TextCenter);
-        TextRenderComponent->SetTextRenderColor(FColor::Cyan);
-        TextRenderComponent->SetText(FText::FromString(TEXT("0")));
     }
 }
 
@@ -58,6 +53,8 @@ void ARFBaseCharacter::BeginPlay()
     check(CameraComponent);
     check(HealthComponent);
     check(TextRenderComponent);
+
+    HealthComponent->OnDeath.AddUObject(this, &ARFBaseCharacter::OnDeath);
 }
 
 void ARFBaseCharacter::Tick(float DeltaTime)
@@ -112,6 +109,14 @@ void ARFBaseCharacter::OnMoveRightAxis(float Amount)
 void ARFBaseCharacter::OnSprintAction(bool Pressed)
 {
     bIsGoingToSprint = Pressed;
+}
+
+void ARFBaseCharacter::OnDeath()
+{
+    if (DeathAnimMontage)
+    {
+        PlayAnimMontage(DeathAnimMontage);
+    }
 }
 
 bool ARFBaseCharacter::IsRunning() const
