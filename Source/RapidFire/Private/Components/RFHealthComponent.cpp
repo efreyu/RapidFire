@@ -5,8 +5,6 @@
 #include "Dev/RFIceDamageType.h"
 #include "GameFramework/Actor.h"
 
-FName URFHealthComponent::HealthComponentName(TEXT("HealthComponent"));
-
 URFHealthComponent::URFHealthComponent()
     : MaxHealth(100.0f)
     , Health(0.0f)

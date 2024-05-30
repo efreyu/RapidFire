@@ -36,7 +36,7 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
         CameraComponent->SetupAttachment(SpringArmComponent);
     }
 
-    HealthComponent = CreateDefaultSubobject<URFHealthComponent>(URFHealthComponent::HealthComponentName);
+    HealthComponent = CreateDefaultSubobject<URFHealthComponent>(RapidFire::HealthComponentName);
     TextRenderComponent = CreateDefaultSubobject<UTextRenderComponent>("TextRenderComponent");
     if (TextRenderComponent)
     {

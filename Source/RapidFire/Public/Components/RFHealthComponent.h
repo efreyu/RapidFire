@@ -6,13 +6,17 @@
 #include "CoreMinimal.h"
 #include "RFHealthComponent.generated.h"
 
+namespace RapidFire::inline Constants
+{
+    constexpr inline auto HealthComponentName{ TEXT("HealthComponent") };
+} // namespace RapidFire::inline Constants
+
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RAPIDFIRE_API URFHealthComponent : public UActorComponent
 {
     GENERATED_BODY()
 
 public:
-    static FName HealthComponentName;
     URFHealthComponent();
 
     UFUNCTION(BlueprintCallable, Category = "Health")

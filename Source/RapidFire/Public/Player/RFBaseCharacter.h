@@ -16,12 +16,12 @@ namespace RapidFire::inline Constants
 {
     namespace Input
     {
-        constexpr inline auto MoveForwardAxis{ "MoveForward" };
-        constexpr inline auto MoveRightAxis{ "MoveRight" };
-        constexpr inline auto LookUpAxis{ "LookUp" };
-        constexpr inline auto TurnAroundAxis{ "TurnAround" };
-        constexpr inline auto JumpAction{ "Jump" };
-        constexpr inline auto SprintAction{ "Sprint" };
+        constexpr inline auto MoveForwardAxis{ TEXT("MoveForward") };
+        constexpr inline auto MoveRightAxis{ TEXT("MoveRight") };
+        constexpr inline auto LookUpAxis{ TEXT("LookUp") };
+        constexpr inline auto TurnAroundAxis{ TEXT("TurnAround") };
+        constexpr inline auto JumpAction{ TEXT("Jump") };
+        constexpr inline auto SprintAction{ TEXT("Sprint") };
     } // namespace Input
 } // namespace RapidFire::inline Constants
 
