@@ -84,4 +84,9 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
+# Configuration
 dev_config.json
+
+# Content
+Content/ExternalContent/StylizedModularChar/*
+!Content/ExternalContent/StylizedModularChar/.gitkeep
