@@ -8,6 +8,7 @@
 #include "Components/RFHealthComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "Engine/DamageEvents.h"
+#include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogBaseCharacter, All, All);
@@ -117,6 +118,10 @@ void ARFBaseCharacter::OnDeath()
         PlayAnimMontage(DeathAnimMontage);
         GetCharacterMovement()->DisableMovement();
         SetLifeSpan(5.f);
+        if (Controller)
+        {
+            Controller->ChangeState(NAME_Spectating);
+        }
     }
 }
 
