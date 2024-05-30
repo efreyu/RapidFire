@@ -36,6 +36,7 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(EEndPlayReason::Type const EndPlayReason) override;
 
 private:
     UFUNCTION(BlueprintCallable, Category = "Damage")
@@ -45,6 +46,21 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", Meta = (ClampMin = 1.0f, ClampMax = 100.0f))
     float MaxHealth;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal")
+    bool IsAutoHeal;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal", Meta = (ClampMin = 0.0f, ClampMax = 120.0f))
+    float AutoHealDelay;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal", Meta = (ClampMin = 0.0f, ClampMax = 100.0f))
+    float AutoHealTime;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal", Meta = (ClampMin = 0.0f, ClampMax = 100.0f))
+    float AutoHealHealth;
+
+    FTimerHandle AutoHealTimerHandle;
+
 private:
-    float Health;
+    float  Health;
+    double LastHitTime;
 };
