@@ -42,6 +42,9 @@ private:
     UFUNCTION(BlueprintCallable, Category = "Damage")
     void OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDamageType const* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
+    UFUNCTION(BlueprintCallable, Category = "Damage")
+    void OnGroundLanded(FHitResult const& Hit);
+
     void SetHealth(float const NewHealth);
 
 protected:
@@ -59,6 +62,12 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal", Meta = (EditCondition = "IsAutoHeal", ClampMin = 0.0f, ClampMax = 100.0f))
     float AutoHealHealth;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage")
+    FVector2D LandedDamageVelocity;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage")
+    FVector2D LandedDamage;
 
     FTimerHandle AutoHealTimerHandle;
 

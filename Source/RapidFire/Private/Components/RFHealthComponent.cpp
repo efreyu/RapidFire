@@ -1,7 +1,10 @@
 // Rapid Fire Game. All Rights Reserved.
 
 #include "Components/RFHealthComponent.h"
+#include "Engine/DamageEvents.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 URFHealthComponent::URFHealthComponent()
     : MaxHealth(100.0f)
@@ -9,6 +12,8 @@ URFHealthComponent::URFHealthComponent()
     , AutoHealDelay(3.f)
     , AutoHealTime(1.f)
     , AutoHealHealth(1.f)
+    , LandedDamageVelocity(FVector2D(900.f, 1200.f))
+    , LandedDamage(FVector2D(10.f, 100.f))
     , Health(0.0f)
 {
     PrimaryComponentTick.bCanEverTick = true;
@@ -21,6 +26,10 @@ void URFHealthComponent::BeginPlay()
     if (auto const Owner = GetOwner())
     {
         Owner->OnTakeAnyDamage.AddDynamic(this, &URFHealthComponent::OnTakeAnyDamage);
+        if (auto const Character = Cast<ACharacter>(Owner))
+        {
+            Character->LandedDelegate.AddDynamic(this, &URFHealthComponent::OnGroundLanded);
+        }
     }
 }
 
@@ -72,4 +81,18 @@ void URFHealthComponent::SetHealth(float const NewHealth)
 {
     Health = FMath::Clamp(NewHealth, 0.0f, MaxHealth);
     OnHealthChanged.Broadcast(Health);
+}
+
+void URFHealthComponent::OnGroundLanded(FHitResult const& Hit)
+{
+    auto const Character = Cast<ACharacter>(GetOwner());
+    if (!Character)
+        return;
+    auto const FallVelocity = -Character->GetCharacterMovement()->Velocity.Z;
+    UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info %f"), *GetName(), FallVelocity);
+    if (FallVelocity < LandedDamageVelocity.X)
+        return;
+
+    auto const Damage = FMath::GetMappedRangeValueClamped(LandedDamageVelocity, LandedDamage, FallVelocity);
+    Character->TakeDamage(Damage, FDamageEvent{}, nullptr, nullptr);
 }
