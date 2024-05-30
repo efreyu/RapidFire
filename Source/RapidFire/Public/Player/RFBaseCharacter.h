@@ -25,7 +25,7 @@ namespace RapidFire::inline Constants
     } // namespace Input
 } // namespace RapidFire::inline Constants
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnJumpStarted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnJumpStartedSignature);
 
 UCLASS()
 class RAPIDFIRE_API ARFBaseCharacter : public ACharacter
@@ -70,7 +70,7 @@ protected:
     UAnimMontage* DeathAnimMontage;
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
-    FOnJumpStarted OnJumpStarted;
+    FOnJumpStartedSignature OnJumpStarted;
 
 private:
     bool bIsGoingToSprint;
