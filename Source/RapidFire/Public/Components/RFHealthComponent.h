@@ -42,6 +42,8 @@ private:
     UFUNCTION(BlueprintCallable, Category = "Damage")
     void OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDamageType const* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
+    void SetHealth(float const NewHealth);
+
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", Meta = (ClampMin = 1.0f, ClampMax = 100.0f))
     float MaxHealth;
@@ -61,6 +63,5 @@ protected:
     FTimerHandle AutoHealTimerHandle;
 
 private:
-    float  Health;
-    double LastHitTime;
+    float Health;
 };

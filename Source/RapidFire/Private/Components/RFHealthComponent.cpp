@@ -10,7 +10,6 @@ URFHealthComponent::URFHealthComponent()
     , AutoHealTime(1.f)
     , AutoHealHealth(1.f)
     , Health(0.0f)
-    , LastHitTime(0.0)
 {
     PrimaryComponentTick.bCanEverTick = true;
 }
@@ -18,8 +17,7 @@ URFHealthComponent::URFHealthComponent()
 void URFHealthComponent::BeginPlay()
 {
     Super::BeginPlay();
-    Health = MaxHealth;
-    OnHealthChanged.Broadcast(Health);
+    SetHealth(MaxHealth);
     if (auto const Owner = GetOwner())
     {
         Owner->OnTakeAnyDamage.AddDynamic(this, &URFHealthComponent::OnTakeAnyDamage);
@@ -40,10 +38,8 @@ void URFHealthComponent::OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDa
     {
         return;
     }
-    Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
-    OnHealthChanged.Broadcast(Health);
-    LastHitTime = GetWorld()->TimeSeconds;
-    if (AutoHealTimerHandle.IsValid())
+    SetHealth(Health - Damage);
+    if (GetWorld() && AutoHealTimerHandle.IsValid())
     {
         GetWorld()->GetTimerManager().ClearTimer(AutoHealTimerHandle);
     }
@@ -59,15 +55,21 @@ void URFHealthComponent::OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDa
             {
                 return;
             }
-            if (GetWorld()->TimeSeconds - LastHitTime > AutoHealDelay)
+            if (Health < MaxHealth)
             {
-                if (Health < MaxHealth)
-                {
-                    Health = FMath::Clamp(Health + AutoHealHealth, 0.0f, MaxHealth);
-                    OnHealthChanged.Broadcast(Health);
-                }
+                SetHealth(Health + AutoHealHealth);
+            }
+            if (Health == MaxHealth || IsDead())
+            {
+                GetWorld()->GetTimerManager().ClearTimer(AutoHealTimerHandle);
             }
         });
-        GetWorld()->GetTimerManager().SetTimer(AutoHealTimerHandle, TimerDelegate, 1.f, true);
+        GetWorld()->GetTimerManager().SetTimer(AutoHealTimerHandle, TimerDelegate, AutoHealTime, true, AutoHealDelay);
     }
+}
+
+void URFHealthComponent::SetHealth(float const NewHealth)
+{
+    Health = FMath::Clamp(NewHealth, 0.0f, MaxHealth);
+    OnHealthChanged.Broadcast(Health);
 }
