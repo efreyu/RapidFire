@@ -59,7 +59,7 @@ void URFHealthComponent::OnTakeAnyDamage(AActor* DamagedActor, float Damage, UDa
             {
                 SetHealth(Health + AutoHealHealth);
             }
-            if (Health == MaxHealth || IsDead())
+            if (FMath::IsNearlyEqual(Health, MaxHealth) || IsDead())
             {
                 GetWorld()->GetTimerManager().ClearTimer(AutoHealTimerHandle);
             }
