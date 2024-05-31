@@ -4,7 +4,7 @@ RapidFire is a game developed on Unreal Engine 5.
 ## Installation
 To clone the repository without additional data, run the following command:
 ```bash
-git clone -b RapidFireMaster --single-branch git@github.com:efreyu/RapidFire.git
+git clone --recurse-submodule git@github.com:efreyu/RapidFire.git
 ```
 
 

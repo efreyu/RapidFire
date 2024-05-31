@@ -86,9 +86,3 @@ DerivedDataCache/*
 
 # Configuration
 dev_config.json
-
-# Content
-Content/ExternalContent/ShooterContent/*
-!Content/ExternalContent/ShooterContent/.gitkeep
-Content/ExternalContent/StylizedModularChar/*
-!Content/ExternalContent/StylizedModularChar/.gitkeep
