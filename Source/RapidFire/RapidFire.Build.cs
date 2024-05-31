@@ -16,7 +16,8 @@ public class RapidFire : ModuleRules
         PublicIncludePaths.AddRange(new string[] {
             "RapidFire/Public/Player",
             "RapidFire/Public/Components",
-            "RapidFire/Public/Dev"
+            "RapidFire/Public/Dev",
+            "RapidFire/Public/Weapons"
         });
 
         // Uncomment if you are using Slate UI
