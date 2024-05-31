@@ -5,7 +5,7 @@ RapidFire is a game developed on Unreal Engine 5.
 I don't use git submodules for external content because it's so large and unfortunately, **git submodule** does not directly support a **--single-branch** option
 To clone the repository without additional data, run the following command:
 ```bash
-git clone git@github.com:efreyu/RapidFire.git RapidFire
+git clone -b master --single-branch git@github.com:efreyu/RapidFire.git RapidFire
 git clone -b external_content --single-branch git@github.com:efreyu/UnrealEngineRFExternalContent.git RapidFire/Content/ExternalContent
 ```
 
