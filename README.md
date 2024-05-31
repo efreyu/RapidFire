@@ -2,12 +2,14 @@
 RapidFire is a game developed on Unreal Engine 5.
 
 ## Installation
-I don't use git submodules for external content because it's so large and unfortunately, **git submodule** does not directly support a **--single-branch** option
 To clone the repository without additional data, run the following command:
 ```bash
 git clone -b master --single-branch git@github.com:efreyu/RapidFire.git RapidFire
-git clone -b external_content --single-branch git@github.com:efreyu/UnrealEngineRFExternalContent.git RapidFire/Content/ExternalContent
+cd RapidFire
+git submodule update --init --recursive --depth=1
 ```
+To clone the repositories with required content ensure you preserve **--depth=1** flag to avoid downloading unnecessary data.
+It's important to join Epic Games official organization on GitHub to access the Unreal Engine repository. For more information, visit [Unreal Engine GitHub](https://www.unrealengine.com/en-US/ue-on-github)
 
 
 ### External assets from Unreal Engine Marketplace
