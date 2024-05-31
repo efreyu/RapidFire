@@ -1,4 +1,0 @@
-[submodule "external_content"]
-    path = Content/ExternalContent
-    url = git@github.com:efreyu/UnrealEngineRFExternalContent.git
-    branch = external_content
