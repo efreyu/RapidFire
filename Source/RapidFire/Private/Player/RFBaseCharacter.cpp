@@ -9,6 +9,7 @@
 #include "Components/TextRenderComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Weapons/RFBaseWeapon.h"
 
 ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<URFCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
@@ -53,10 +54,12 @@ void ARFBaseCharacter::BeginPlay()
     check(CameraComponent);
     check(HealthComponent);
     check(TextRenderComponent);
+    check(WeaponClass);
 
     OnHealthChanged(HealthComponent->GetHealth());
     HealthComponent->OnDeath.AddUObject(this, &ARFBaseCharacter::OnDeath);
     HealthComponent->OnHealthChanged.AddUObject(this, &ARFBaseCharacter::OnHealthChanged);
+    SpawnWeapon();
 }
 
 void ARFBaseCharacter::Tick(float DeltaTime)
@@ -146,4 +149,13 @@ float ARFBaseCharacter::GetMovementDirection() const
     auto const CrossProduct = FVector::CrossProduct(GetActorForwardVector(), Velocity);
     auto const Radians = FMath::RadiansToDegrees(AngleBetween);
     return static_cast<float>(FMath::Abs(CrossProduct.Z) == 0.0 ? Radians : Radians * FMath::Sign(CrossProduct.Z));
+}
+
+void ARFBaseCharacter::SpawnWeapon() const
+{
+    if (!GetWorld())
+        return;
+    auto const                Weapon = GetWorld()->SpawnActor<ARFBaseWeapon>(WeaponClass);
+    FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, false);
+    Weapon->AttachToComponent(GetMesh(), AttachmentRules, RapidFire::Socket::WeaponSocket);
 }
