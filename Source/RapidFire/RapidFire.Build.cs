@@ -17,7 +17,8 @@ public class RapidFire : ModuleRules
             "RapidFire/Public/Player",
             "RapidFire/Public/Components",
             "RapidFire/Public/Dev",
-            "RapidFire/Public/Weapons"
+            "RapidFire/Public/Weapons",
+            "RapidFire/Public/UI",
         });
 
         // Uncomment if you are using Slate UI

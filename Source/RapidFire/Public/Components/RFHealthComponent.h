@@ -31,7 +31,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Health")
     bool IsDead() const { return FMath::IsNearlyZero(Health); }
 
-    FOnDeathSignature         OnDeath;
+    FOnDeathSignature OnDeath;
     FOnHealthChangedSignature OnHealthChanged;
 
 protected:

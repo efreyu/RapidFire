@@ -29,6 +29,7 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
         SpringArmComponent->SetupAttachment(GetRootComponent());
         SpringArmComponent->TargetArmLength = 300.0f;
         SpringArmComponent->bUsePawnControlRotation = true;
+        SpringArmComponent->SocketOffset = FVector(0.0f, 100.0f, 80.0f);
     }
 
     CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
@@ -42,6 +43,7 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
     if (TextRenderComponent)
     {
         TextRenderComponent->SetupAttachment(GetRootComponent());
+        TextRenderComponent->SetOwnerNoSee(true);
     }
 }
 
@@ -155,7 +157,7 @@ void ARFBaseCharacter::SpawnWeapon() const
 {
     if (!GetWorld())
         return;
-    auto const                Weapon = GetWorld()->SpawnActor<ARFBaseWeapon>(WeaponClass);
-    FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, false);
+    auto const Weapon = GetWorld()->SpawnActor<ARFBaseWeapon>(WeaponClass);
+    auto const AttachmentRules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, false);
     Weapon->AttachToComponent(GetMesh(), AttachmentRules, RapidFire::Socket::WeaponSocket);
 }
