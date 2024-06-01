@@ -6,8 +6,6 @@
 #include "GameFramework/Character.h"
 #include "RFBaseCharacter.generated.h"
 
-class ARFBaseWeapon;
-// forward declaration
 class UCameraComponent;
 class USpringArmComponent;
 class URFHealthComponent;
@@ -23,11 +21,8 @@ namespace RapidFire::inline Constants
         constexpr inline auto TurnAroundAxis{ TEXT("TurnAround") };
         constexpr inline auto JumpAction{ TEXT("Jump") };
         constexpr inline auto SprintAction{ TEXT("Sprint") };
+        constexpr inline auto FireAction{ TEXT("Fire") };
     } // namespace Input
-    namespace Socket
-    {
-        constexpr inline auto WeaponSocket{ TEXT("WeaponSocket") };
-    }
 } // namespace RapidFire::inline Constants
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnJumpStartedSignature);
@@ -58,8 +53,6 @@ private:
     void OnDeath();
     void OnHealthChanged(float Health);
 
-    void SpawnWeapon() const;
-
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     UCameraComponent* CameraComponent;
@@ -75,9 +68,6 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "Animation")
     UAnimMontage* DeathAnimMontage;
-
-    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-    TSubclassOf<ARFBaseWeapon> WeaponClass;
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnJumpStartedSignature OnJumpStarted;
