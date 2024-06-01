@@ -15,6 +15,7 @@ class RAPIDFIRE_API ARFBaseWeapon : public AActor
 
 public:
     ARFBaseWeapon();
+    virtual void Fire();
 
 protected:
     virtual void BeginPlay() override;

@@ -10,6 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class URFHealthComponent;
 class UTextRenderComponent;
+class URFWeaponComponent;
 
 namespace RapidFire::inline Constants
 {
@@ -65,6 +66,9 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
     UTextRenderComponent* TextRenderComponent;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+    URFWeaponComponent* WeaponComponent;
 
     UPROPERTY(EditDefaultsOnly, Category = "Animation")
     UAnimMontage* DeathAnimMontage;

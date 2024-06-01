@@ -6,6 +6,7 @@
 #include "Components/InputComponent.h"
 #include "Components/RFCharacterMovementComponent.h"
 #include "Components/RFHealthComponent.h"
+#include "Components/RFWeaponComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -16,6 +17,7 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
     , SpringArmComponent(nullptr)
     , HealthComponent(nullptr)
     , TextRenderComponent(nullptr)
+    , WeaponComponent(nullptr)
     , DeathAnimMontage(nullptr)
     , bIsGoingToSprint(false)
     , bIsMovingForward(false)
@@ -44,6 +46,7 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
         TextRenderComponent->SetupAttachment(GetRootComponent());
         TextRenderComponent->SetOwnerNoSee(true);
     }
+    WeaponComponent = CreateDefaultSubobject<URFWeaponComponent>(RapidFire::Components::WeaponComponentName);
 }
 
 void ARFBaseCharacter::BeginPlay()
@@ -55,6 +58,7 @@ void ARFBaseCharacter::BeginPlay()
     check(CameraComponent);
     check(HealthComponent);
     check(TextRenderComponent);
+    check(WeaponComponent);
 
     OnHealthChanged(HealthComponent->GetHealth());
     HealthComponent->OnDeath.AddUObject(this, &ARFBaseCharacter::OnDeath);
@@ -93,6 +97,7 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
         OnSprintAction(false);
     });
     PlayerInputComponent->AddActionBinding(SprintReleasedBinding);
+    PlayerInputComponent->BindAction(RapidFire::Input::FireAction, IE_Pressed, WeaponComponent, &URFWeaponComponent::Fire);
 }
 
 void ARFBaseCharacter::OnMoveForwardAxis(float Amount)

@@ -9,6 +9,7 @@
 URFWeaponComponent::URFWeaponComponent()
     : WeaponClass(nullptr)
     , WeaponAttachSocketName(RapidFire::Socket::WeaponSocket)
+    , CurrentWeapon(nullptr)
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
@@ -20,14 +21,21 @@ void URFWeaponComponent::BeginPlay()
     SpawnWeapon();
 }
 
-void URFWeaponComponent::SpawnWeapon() const
+void URFWeaponComponent::SpawnWeapon()
 {
     if (!GetWorld())
         return;
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character)
         return;
-    auto const Weapon = GetWorld()->SpawnActor<ARFBaseWeapon>(WeaponClass);
+    CurrentWeapon = GetWorld()->SpawnActor<ARFBaseWeapon>(WeaponClass);
     auto const AttachmentRules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, false);
-    Weapon->AttachToComponent(Character->GetMesh(), AttachmentRules, WeaponAttachSocketName);
+    CurrentWeapon->AttachToComponent(Character->GetMesh(), AttachmentRules, WeaponAttachSocketName);
+}
+
+void URFWeaponComponent::Fire()
+{
+    if (!CurrentWeapon)
+        return;
+    CurrentWeapon->Fire();
 }

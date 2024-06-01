@@ -14,3 +14,8 @@ void ARFBaseWeapon::BeginPlay()
 {
     Super::BeginPlay();
 }
+
+void ARFBaseWeapon::Fire()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info FIRE"), *GetName());
+}

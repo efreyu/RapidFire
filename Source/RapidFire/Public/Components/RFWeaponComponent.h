@@ -10,6 +10,10 @@ class ARFBaseWeapon;
 
 namespace RapidFire::inline Constants
 {
+    namespace Components
+    {
+        constexpr inline auto WeaponComponentName{ TEXT("WeaponComponent") };
+    } // namespace Components
     namespace Socket
     {
         constexpr inline auto WeaponSocket{ TEXT("WeaponSocket") };
@@ -24,11 +28,13 @@ class RAPIDFIRE_API URFWeaponComponent : public UActorComponent
 public:
     URFWeaponComponent();
 
+    void Fire();
+
 protected:
     virtual void BeginPlay() override;
 
 private:
-    void SpawnWeapon() const;
+    void SpawnWeapon();
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
@@ -36,4 +42,8 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     FName WeaponAttachSocketName;
+
+private:
+    UPROPERTY()
+    ARFBaseWeapon* CurrentWeapon;
 };
