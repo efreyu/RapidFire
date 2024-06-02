@@ -30,6 +30,7 @@ void URFWeaponComponent::SpawnWeapon()
     CurrentWeapon = GetWorld()->SpawnActor<ARFBaseWeapon>(WeaponClass);
     auto const AttachmentRules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, false);
     CurrentWeapon->AttachToComponent(Character->GetMesh(), AttachmentRules, WeaponAttachSocketName);
+    CurrentWeapon->SetOwner(GetOwner());
 }
 
 void URFWeaponComponent::Fire()
