@@ -64,5 +64,9 @@ IncludeCategories:
 #IncludeIsMainRegex: '(Test)?$'
 #IncludeIsMainSourceRegex: '".*"?'
 
-QualifierOrder: ['inline', 'static', 'type', 'const']
 QualifierAlignment: Custom
+QualifierOrder:
+  - inline
+  - static
+  - type
+  - const
