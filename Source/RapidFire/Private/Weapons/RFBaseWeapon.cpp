@@ -46,11 +46,6 @@ void ARFBaseWeapon::MakeShot()
     {
         DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 12, FColor::Red, false, 1.0f, 0, 1.0f);
         TraceEnd = HitResult.ImpactPoint;
-        UE_LOG(LogTemp, Warning, TEXT("Hit: '%s'"), *HitResult.GetActor()->GetName());
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Hit: None"));
     }
     DrawDebugLine(GetWorld(), SocketTransform.GetLocation(), TraceEnd, FColor::Red, false, 1.0f, 0, 1.0f);
 }
