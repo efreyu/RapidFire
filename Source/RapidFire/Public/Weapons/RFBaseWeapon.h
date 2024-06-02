@@ -8,6 +8,11 @@
 
 class USkeletalMeshComponent;
 
+namespace RapidFire::inline Constants::Socket
+{
+    constexpr inline auto MuzzleSocket{ TEXT("MuzzleSocket") };
+} // namespace RapidFire::inline Constants::Socket
+
 UCLASS()
 class RAPIDFIRE_API ARFBaseWeapon : public AActor
 {
@@ -19,6 +24,9 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+
+private:
+    void MakeShot();
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
