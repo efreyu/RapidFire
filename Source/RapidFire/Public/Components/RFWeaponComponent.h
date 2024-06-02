@@ -37,10 +37,10 @@ private:
     void SpawnWeapon();
 
 protected:
-    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
     TSubclassOf<ARFBaseWeapon> WeaponClass;
 
-    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
     FName WeaponAttachSocketName;
 
 private:

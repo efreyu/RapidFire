@@ -17,13 +17,12 @@ URFWeaponComponent::URFWeaponComponent()
 void URFWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();
-    check(WeaponClass);
     SpawnWeapon();
 }
 
 void URFWeaponComponent::SpawnWeapon()
 {
-    if (!GetWorld())
+    if (!GetWorld() || !WeaponClass)
         return;
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character)
