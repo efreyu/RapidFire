@@ -8,6 +8,7 @@
 
 class USkeletalMeshComponent;
 class APlayerController;
+struct FHitResult;
 
 namespace RapidFire::inline Constants::Socket
 {

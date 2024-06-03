@@ -126,7 +126,8 @@ void ARFBaseCharacter::OnDeath()
     {
         Controller->ChangeState(NAME_Spectating);
     }
-    GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+    GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void ARFBaseCharacter::OnHealthChanged(float Health)
