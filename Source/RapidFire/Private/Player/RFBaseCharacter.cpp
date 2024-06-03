@@ -3,6 +3,7 @@
 #include "Player/RFBaseCharacter.h"
 
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "Components/RFCharacterMovementComponent.h"
 #include "Components/RFHealthComponent.h"
@@ -118,16 +119,14 @@ void ARFBaseCharacter::OnSprintAction(bool Pressed)
 
 void ARFBaseCharacter::OnDeath()
 {
-    if (DeathAnimMontage)
+    PlayAnimMontage(DeathAnimMontage);
+    GetCharacterMovement()->DisableMovement();
+    SetLifeSpan(5.f);
+    if (Controller)
     {
-        PlayAnimMontage(DeathAnimMontage);
-        GetCharacterMovement()->DisableMovement();
-        SetLifeSpan(5.f);
-        if (Controller)
-        {
-            Controller->ChangeState(NAME_Spectating);
-        }
+        Controller->ChangeState(NAME_Spectating);
     }
+    GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 }
 
 void ARFBaseCharacter::OnHealthChanged(float Health)

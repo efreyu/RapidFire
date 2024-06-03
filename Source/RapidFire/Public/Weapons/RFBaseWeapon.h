@@ -31,6 +31,7 @@ private:
     APlayerController* GetPlayerController() const;
     bool GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const;
     bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
+    void MakeDamage(FHitResult const& HitResult);
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
@@ -38,4 +39,7 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
     FName MuzzleSocketName;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+    float DamageAmount;
 };

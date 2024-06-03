@@ -10,6 +10,7 @@
 ARFBaseWeapon::ARFBaseWeapon()
     : SkeletalMeshComponent(CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent"))
     , MuzzleSocketName(RapidFire::Constants::Socket::MuzzleSocket)
+    , DamageAmount(10.f)
 {
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(SkeletalMeshComponent);
@@ -46,6 +47,7 @@ void ARFBaseWeapon::MakeShot()
     {
         DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 12, FColor::Red, false, 1.0f, 0, 1.0f);
         TraceEnd = HitResult.ImpactPoint;
+        MakeDamage(HitResult);
     }
     DrawDebugLine(GetWorld(), SocketTransform.GetLocation(), TraceEnd, FColor::Red, false, 1.0f, 0, 1.0f);
 }
@@ -77,4 +79,12 @@ bool ARFBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
     TraceStart = ViewLocation;
     TraceEnd = TraceStart + ViewRotation.Vector() * 10000.f;
     return true;
+}
+
+void ARFBaseWeapon::MakeDamage(FHitResult const& HitResult)
+{
+    if (!HitResult.GetActor())
+        return;
+
+    HitResult.GetActor()->TakeDamage(DamageAmount, FDamageEvent{}, GetPlayerController(), this);
 }
