@@ -34,6 +34,7 @@ if __name__ == "__main__":
 
     # cleanup project
     cleanup_project.clean_project(script_dir)
+    cleanup_project.remove_temp_files(script_dir)
 
     # generate project
     generate_project.generate_project(script_dir, current_config, current_platform)
