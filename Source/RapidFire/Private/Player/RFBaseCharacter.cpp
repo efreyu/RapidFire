@@ -98,7 +98,8 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
         OnSprintAction(false);
     });
     PlayerInputComponent->AddActionBinding(SprintReleasedBinding);
-    PlayerInputComponent->BindAction(RapidFire::Input::FireAction, IE_Pressed, WeaponComponent, &URFWeaponComponent::Fire);
+    PlayerInputComponent->BindAction(RapidFire::Input::FireAction, IE_Pressed, WeaponComponent, &URFWeaponComponent::StartFire);
+    PlayerInputComponent->BindAction(RapidFire::Input::FireAction, IE_Released, WeaponComponent, &URFWeaponComponent::StopFire);
 }
 
 void ARFBaseCharacter::OnMoveForwardAxis(float Amount)
@@ -128,6 +129,7 @@ void ARFBaseCharacter::OnDeath()
     }
     GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    WeaponComponent->StopFire();
 }
 
 void ARFBaseCharacter::OnHealthChanged(float Health)

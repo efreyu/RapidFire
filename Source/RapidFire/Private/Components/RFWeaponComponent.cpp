@@ -33,9 +33,16 @@ void URFWeaponComponent::SpawnWeapon()
     CurrentWeapon->SetOwner(GetOwner());
 }
 
-void URFWeaponComponent::Fire()
+void URFWeaponComponent::StartFire()
 {
     if (!CurrentWeapon)
         return;
-    CurrentWeapon->Fire();
+    CurrentWeapon->StartFire();
+}
+
+void URFWeaponComponent::StopFire()
+{
+    if (!CurrentWeapon)
+        return;
+    CurrentWeapon->StopFire();
 }

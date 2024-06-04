@@ -28,7 +28,8 @@ class RAPIDFIRE_API URFWeaponComponent : public UActorComponent
 public:
     URFWeaponComponent();
 
-    void Fire();
+    void StartFire();
+    void StopFire();
 
 protected:
     virtual void BeginPlay() override;

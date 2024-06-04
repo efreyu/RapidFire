@@ -12,6 +12,8 @@ ARFBaseWeapon::ARFBaseWeapon()
     : SkeletalMeshComponent(CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent"))
     , MuzzleSocketName(RapidFire::Constants::Socket::MuzzleSocket)
     , DamageAmount(10.f)
+    , ShotRate(0.1f)
+    , BulletSpread(2.0f)
 {
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(SkeletalMeshComponent);
@@ -23,10 +25,17 @@ void ARFBaseWeapon::BeginPlay()
     check(SkeletalMeshComponent);
 }
 
-void ARFBaseWeapon::Fire()
+void ARFBaseWeapon::StartFire()
 {
-    UE_LOG(LogTemp, Warning, TEXT("Actor: '%s', Debug info FIRE"), *GetName());
-    MakeShot();
+    GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ARFBaseWeapon::MakeShot, ShotRate, true);
+}
+
+void ARFBaseWeapon::StopFire()
+{
+    if (ShotTimerHandle.IsValid())
+    {
+        GetWorldTimerManager().ClearTimer(ShotTimerHandle);
+    }
 }
 
 void ARFBaseWeapon::MakeShot()
@@ -78,7 +87,8 @@ bool ARFBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
         return false;
 
     TraceStart = ViewLocation;
-    TraceEnd = TraceStart + ViewRotation.Vector() * 10000.f;
+    auto const HalfRad = FMath::DegreesToRadians(BulletSpread);
+    TraceEnd = TraceStart + FMath::VRandCone(ViewRotation.Vector(), HalfRad) * 10000.0f;
     return true;
 }
 

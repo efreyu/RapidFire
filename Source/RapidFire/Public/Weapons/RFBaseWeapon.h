@@ -22,7 +22,8 @@ class RAPIDFIRE_API ARFBaseWeapon : public AActor
 
 public:
     ARFBaseWeapon();
-    virtual void Fire();
+    virtual void StartFire();
+    virtual void StopFire();
 
 protected:
     virtual void BeginPlay() override;
@@ -43,4 +44,13 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
     float DamageAmount;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+    float ShotRate;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+    float BulletSpread;
+
+private:
+    FTimerHandle ShotTimerHandle;
 };
