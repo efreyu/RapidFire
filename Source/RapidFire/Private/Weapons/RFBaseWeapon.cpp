@@ -12,8 +12,6 @@ ARFBaseWeapon::ARFBaseWeapon()
     : SkeletalMeshComponent(CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent"))
     , MuzzleSocketName(RapidFire::Constants::Socket::MuzzleSocket)
     , DamageAmount(10.f)
-    , ShotRate(0.1f)
-    , BulletSpread(2.0f)
 {
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(SkeletalMeshComponent);
@@ -27,39 +25,20 @@ void ARFBaseWeapon::BeginPlay()
 
 void ARFBaseWeapon::StartFire()
 {
-    GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ARFBaseWeapon::MakeShot, ShotRate, true);
+    // Check this should be implemented in derived classes
+    checkNoEntry();
 }
 
 void ARFBaseWeapon::StopFire()
 {
-    if (ShotTimerHandle.IsValid())
-    {
-        GetWorldTimerManager().ClearTimer(ShotTimerHandle);
-    }
+    // Check this should be implemented in derived classes
+    checkNoEntry();
 }
 
 void ARFBaseWeapon::MakeShot()
 {
-    if (!GetWorld())
-        return;
-
-    FVector TraceStart;
-    FVector TraceEnd;
-    if (!GetTraceData(TraceStart, TraceEnd))
-        return;
-    FTransform const SocketTransform = SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName);
-
-    FHitResult HitResult;
-    FCollisionQueryParams CollisionQueryParams;
-    CollisionQueryParams.AddIgnoredActor(GetOwner());
-    GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionQueryParams);
-    if (HitResult.bBlockingHit)
-    {
-        DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 12, FColor::Red, false, 1.0f, 0, 1.0f);
-        TraceEnd = HitResult.ImpactPoint;
-        MakeDamage(HitResult);
-    }
-    DrawDebugLine(GetWorld(), SocketTransform.GetLocation(), TraceEnd, FColor::Red, false, 1.0f, 0, 1.0f);
+    // Check this should be implemented in derived classes
+    checkNoEntry();
 }
 
 APlayerController* ARFBaseWeapon::GetPlayerController() const
@@ -87,8 +66,7 @@ bool ARFBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
         return false;
 
     TraceStart = ViewLocation;
-    auto const HalfRad = FMath::DegreesToRadians(BulletSpread);
-    TraceEnd = TraceStart + FMath::VRandCone(ViewRotation.Vector(), HalfRad) * 10000.0f;
+    TraceEnd = TraceStart + ViewRotation.Vector() * 10000.0f;
     return true;
 }
 
@@ -98,4 +76,11 @@ void ARFBaseWeapon::MakeDamage(FHitResult const& HitResult)
         return;
 
     HitResult.GetActor()->TakeDamage(DamageAmount, FDamageEvent{}, GetPlayerController(), this);
+}
+
+void ARFBaseWeapon::MakeHit(FHitResult& HitResult, FVector const& TraceStart, FVector const& TraceEnd) const
+{
+    FCollisionQueryParams CollisionQueryParams;
+    CollisionQueryParams.AddIgnoredActor(GetOwner());
+    GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionQueryParams);
 }

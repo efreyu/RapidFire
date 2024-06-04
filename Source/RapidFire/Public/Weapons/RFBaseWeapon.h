@@ -27,13 +27,12 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-
-private:
-    void MakeShot();
+    virtual void MakeShot();
+    virtual bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
     APlayerController* GetPlayerController() const;
     bool GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const;
-    bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
     void MakeDamage(FHitResult const& HitResult);
+    void MakeHit(FHitResult& HitResult, FVector const& TraceStart, FVector const& TraceEnd) const;
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
@@ -44,13 +43,4 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
     float DamageAmount;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float ShotRate;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float BulletSpread;
-
-private:
-    FTimerHandle ShotTimerHandle;
 };
