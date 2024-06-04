@@ -42,13 +42,13 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
     FName MuzzleSocketName;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
     float DamageAmount;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
     float ShotRate;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
     float BulletSpread;
 
 private:
