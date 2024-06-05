@@ -6,7 +6,7 @@
 ARFLauncherProjectile::ARFLauncherProjectile()
 {
     PrimaryActorTick.bCanEverTick = false;
-    SphereComponent(CreateDefaultSubobject<USphereComponent>("SphereComponent"));
+    SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
     SphereComponent->InitSphereRadius(5.f);
     SetRootComponent(SphereComponent);
 }
