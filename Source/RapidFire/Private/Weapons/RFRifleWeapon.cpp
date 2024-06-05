@@ -8,11 +8,12 @@ ARFRifleWeapon::ARFRifleWeapon()
     : ShotRate(0.1f)
     , BulletSpread(1.5f)
 {
-    //
+    Super::ARFBaseWeapon();
 }
 
 void ARFRifleWeapon::StartFire()
 {
+    MakeShot();
     GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ARFRifleWeapon::MakeShot, ShotRate, true);
 }
 
@@ -55,6 +56,7 @@ bool ARFRifleWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
 
     TraceStart = ViewLocation;
     auto const HalfRad = FMath::DegreesToRadians(BulletSpread);
-    TraceEnd = TraceStart + FMath::VRandCone(ViewRotation.Vector(), HalfRad) * 10000.0f;
+    // TraceEnd = TraceStart + FMath::VRandCone(ViewRotation.Vector(), HalfRad);
+    TraceEnd = TraceStart + ViewRotation.Vector();
     return true;
 }

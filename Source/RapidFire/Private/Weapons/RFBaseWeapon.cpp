@@ -51,11 +51,20 @@ APlayerController* ARFBaseWeapon::GetPlayerController() const
 
 bool ARFBaseWeapon::GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const
 {
-    auto const PlayerController = GetPlayerController();
-    if (!PlayerController)
+    auto const Character = Cast<ACharacter>(GetOwner());
+    if (!Character)
         return false;
-    PlayerController->GetPlayerViewPoint(ViewLocation, ViewRotation);
-    return true;
+
+    if (Character->IsPlayerControlled())
+    {
+        auto const Controller = Character->GetController<APlayerController>();
+        if (!Controller)
+            return false;
+
+        Controller->GetPlayerViewPoint(ViewLocation, ViewRotation);
+        return true;
+    }
+    return false;
 }
 
 bool ARFBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
