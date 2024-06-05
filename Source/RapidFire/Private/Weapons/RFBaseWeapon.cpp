@@ -12,6 +12,7 @@ ARFBaseWeapon::ARFBaseWeapon()
     : SkeletalMeshComponent(CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent"))
     , MuzzleSocketName(RapidFire::Constants::Socket::MuzzleSocket)
     , DamageAmount(10.f)
+    , ShootDirectionRange(10000.f)
 {
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(SkeletalMeshComponent);
@@ -75,7 +76,7 @@ bool ARFBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
         return false;
 
     TraceStart = ViewLocation;
-    TraceEnd = TraceStart + ViewRotation.Vector() * 10000.0f;
+    TraceEnd = TraceStart + ViewRotation.Vector() * ShootDirectionRange;
     return true;
 }
 

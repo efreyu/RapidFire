@@ -5,15 +5,15 @@
 #include "Engine/World.h"
 
 ARFRifleWeapon::ARFRifleWeapon()
-    : ShotRate(0.1f)
+    : ARFBaseWeapon()
+    , ShotRate(0.1f)
     , BulletSpread(1.5f)
 {
-    Super::ARFBaseWeapon();
+    //
 }
 
 void ARFRifleWeapon::StartFire()
 {
-    MakeShot();
     GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ARFRifleWeapon::MakeShot, ShotRate, true);
 }
 
@@ -34,16 +34,16 @@ void ARFRifleWeapon::MakeShot()
     FVector TraceEnd;
     if (!GetTraceData(TraceStart, TraceEnd))
         return;
-    FTransform const SocketTransform = SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName);
 
     FHitResult HitResult;
-    MakeHit(HitResult, SocketTransform.GetLocation(), TraceEnd);
+    MakeHit(HitResult, TraceStart, TraceEnd);
     if (HitResult.bBlockingHit)
     {
         DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 12, FColor::Red, false, 1.0f, 0, 1.0f);
         TraceEnd = HitResult.ImpactPoint;
         MakeDamage(HitResult);
     }
+    FTransform const SocketTransform = SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName);
     DrawDebugLine(GetWorld(), SocketTransform.GetLocation(), TraceEnd, FColor::Red, false, 1.0f, 0, 1.0f);
 }
 
@@ -56,7 +56,6 @@ bool ARFRifleWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
 
     TraceStart = ViewLocation;
     auto const HalfRad = FMath::DegreesToRadians(BulletSpread);
-    // TraceEnd = TraceStart + FMath::VRandCone(ViewRotation.Vector(), HalfRad);
-    TraceEnd = TraceStart + ViewRotation.Vector();
+    TraceEnd = TraceStart + FMath::VRandCone(ViewRotation.Vector(), HalfRad) * ShootDirectionRange;
     return true;
 }
