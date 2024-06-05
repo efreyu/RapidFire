@@ -43,8 +43,7 @@ void ARFRifleWeapon::MakeShot()
         TraceEnd = HitResult.ImpactPoint;
         MakeDamage(HitResult);
     }
-    FTransform const SocketTransform = SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName);
-    DrawDebugLine(GetWorld(), SocketTransform.GetLocation(), TraceEnd, FColor::Red, false, 1.0f, 0, 1.0f);
+    DrawDebugLine(GetWorld(), GetMuzzleLocation(), TraceEnd, FColor::Red, false, 1.0f, 0, 1.0f);
 }
 
 bool ARFRifleWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const

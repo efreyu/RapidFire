@@ -33,6 +33,7 @@ protected:
     bool GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const;
     void MakeDamage(FHitResult const& HitResult);
     void MakeHit(FHitResult& HitResult, FVector const& TraceStart, FVector const& TraceEnd) const;
+    FVector GetMuzzleLocation() const;
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")

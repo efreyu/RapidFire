@@ -94,3 +94,8 @@ void ARFBaseWeapon::MakeHit(FHitResult& HitResult, FVector const& TraceStart, FV
     CollisionQueryParams.AddIgnoredActor(GetOwner());
     GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionQueryParams);
 }
+
+FVector ARFBaseWeapon::GetMuzzleLocation() const
+{
+    return SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName).GetLocation();
+}
