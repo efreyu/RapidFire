@@ -1,9 +1,9 @@
 {
   "windows": {
     "game_version": "5.4",
-    "engine_path": "c:\\Program Files\\Epic Games\\UE_{game_version}",
+    "engine_path": "D:\\UnrealEngine\\UE_{game_version}",
     "build_tool_relative_path": "Engine\\Binaries\\DotNET\\UnrealBuildTool\\UnrealBuildTool.exe",
-    "version_selector": "c:\\Program Files (x86)\\Epic Games\\Launcher\\Engine\\Binaries\\Win64\\UnrealVersionSelector.exe",
+    "generate_project_script": "D:\\UnrealEngine\\UE_5.4\\Engine\\Build\\BatchFiles\\Mac\\GenerateProjectFiles.sh",
     "project_name": "RapidFire.uproject"
   },
   "macos": {
