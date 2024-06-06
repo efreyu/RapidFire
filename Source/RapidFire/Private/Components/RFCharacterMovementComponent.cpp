@@ -9,6 +9,6 @@ URFCharacterMovementComponent::URFCharacterMovementComponent(FObjectInitializer 
 
 float URFCharacterMovementComponent::GetMaxSpeed() const
 {
-    ARFBaseCharacter const* CharacterOwner = Cast<ARFBaseCharacter>(GetPawnOwner());
-    return CharacterOwner && CharacterOwner->IsRunning() ? Super::GetMaxSpeed() * RunSpeedModifier : Super::GetMaxSpeed();
+    ARFBaseCharacter const* ActorOwner = Cast<ARFBaseCharacter>(GetPawnOwner());
+    return ActorOwner && ActorOwner->IsRunning() ? Super::GetMaxSpeed() * RunSpeedModifier : Super::GetMaxSpeed();
 }
