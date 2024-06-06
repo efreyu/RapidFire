@@ -6,9 +6,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "RFGameModeBase.generated.h"
 
-/**
- *
- */
 UCLASS()
 class RAPIDFIRE_API ARFGameModeBase : public AGameModeBase
 {
