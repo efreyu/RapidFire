@@ -8,6 +8,7 @@ def clean_project(project_dir):
     build_dir = os.path.join(project_dir, 'Build')
     binaries_dir = os.path.join(project_dir, 'Binaries')
     derived_data_cache_dir = os.path.join(project_dir, 'DerivedDataCache')
+    local_derived_data_cache_dir = os.path.join(project_dir, 'LocalDerivedDataCache')
     saved_dir = os.path.join(project_dir, 'Saved')
     solution_file = os.path.join(project_dir, '*.sln')
 
@@ -31,6 +32,7 @@ def clean_project(project_dir):
     remove_directory(build_dir)
     remove_directory(binaries_dir)
     remove_directory(derived_data_cache_dir)
+    remove_directory(local_derived_data_cache_dir)
     remove_directory(saved_dir)
     remove_files(solution_file)
 

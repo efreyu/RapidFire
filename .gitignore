@@ -83,6 +83,8 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+LocalDerivedDataCache/*
+*DerivedDataCache/*
 
 # Configuration
 dev_config.json
