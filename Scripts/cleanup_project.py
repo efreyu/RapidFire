@@ -14,7 +14,10 @@ def clean_project(project_dir):
     # Function to remove directories
     def remove_directory(directory):
         if os.path.exists(directory):
-            shutil.rmtree(directory)
+            try:
+                shutil.rmtree(directory)
+            except Exception as e:
+                print(f"Failed to remove {directory}: {e}")
             print(f"Removed directory: {directory}")
 
     # Function to remove files
