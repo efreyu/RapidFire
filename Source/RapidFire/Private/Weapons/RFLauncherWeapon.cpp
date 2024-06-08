@@ -1,7 +1,6 @@
 // Rapid Fire Game. All Rights Reserved.
 
 #include "Weapons/RFLauncherWeapon.h"
-#include "Kismet/GameplayStatics.h"
 #include "Weapons/RFLauncherProjectile.h"
 
 ARFLauncherWeapon::ARFLauncherWeapon()
@@ -9,18 +8,34 @@ ARFLauncherWeapon::ARFLauncherWeapon()
 
 void ARFLauncherWeapon::StartFire()
 {
-    //
+    MakeShot();
 }
 
 void ARFLauncherWeapon::StopFire()
 {
-    MakeShot();
+    //
 }
 
 void ARFLauncherWeapon::MakeShot()
 {
-    FTransform const SpawnTransform(FRotator::ZeroRotator, GetMuzzleLocation());
-    auto const Projectile = Cast<ARFLauncherProjectile>(UGameplayStatics::BeginDeferredActorSpawnFromClass(GetWorld(), ProjectileClass, SpawnTransform));
+    if (!GetWorld())
+        return;
 
-    UGameplayStatics::FinishSpawningActor(Projectile, SpawnTransform);
+    FVector TraceStart, TraceEnd;
+    if (!GetTraceData(TraceStart, TraceEnd))
+        return;
+
+    FHitResult HitResult;
+    MakeHit(HitResult, TraceStart, TraceEnd);
+
+    FVector const EndPoint = HitResult.bBlockingHit ? HitResult.ImpactPoint : TraceEnd;
+    FVector const Direction = (EndPoint - GetMuzzleLocation()).GetSafeNormal();
+
+    FTransform const SpawnTransform(FRotator::ZeroRotator, GetMuzzleLocation());
+    auto const Projectile = GetWorld()->SpawnActorDeferred<ARFLauncherProjectile>(ProjectileClass, SpawnTransform);
+    if (Projectile)
+    {
+        Projectile->SetShotDirection(Direction);
+        Projectile->FinishSpawning(SpawnTransform);
+    }
 }

@@ -31,7 +31,7 @@ ARFBaseCharacter::ARFBaseCharacter(FObjectInitializer const& ObjectInitializer)
         SpringArmComponent->SetupAttachment(GetRootComponent());
         SpringArmComponent->TargetArmLength = 300.0f;
         SpringArmComponent->bUsePawnControlRotation = true;
-        SpringArmComponent->SocketOffset = FVector(0.0f, 100.0f, 80.0f);
+        SpringArmComponent->SocketOffset = FVector(0.0f, 80.0f, 130.0f);
     }
 
     CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
