@@ -15,6 +15,8 @@ ARFLauncherProjectile::ARFLauncherProjectile()
     SetRootComponent(SphereComponent);
 
     ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
+    ProjectileMovementComponent->InitialSpeed = 2000.f;
+    ProjectileMovementComponent->ProjectileGravityScale = 0.f;
 }
 
 void ARFLauncherProjectile::BeginPlay()
@@ -23,4 +25,5 @@ void ARFLauncherProjectile::BeginPlay()
 
     check(ProjectileMovementComponent);
     ProjectileMovementComponent->Velocity = ShotDirection * ProjectileMovementComponent->InitialSpeed;
+    SetLifeSpan(5.f);
 }
