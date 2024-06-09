@@ -24,6 +24,11 @@ protected:
     UFUNCTION()
     void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, FHitResult const& Hit);
 
+    UFUNCTION()
+    void OnDestroy(AActor* DestroyedActor);
+
+    void ApplyDamage();
+
     AController* GetController() const;
 
     UPROPERTY(VisibleDefaultsOnly, Category = "Weapon")
@@ -46,4 +51,5 @@ protected:
 
 private:
     FVector ShotDirection;
+    bool IsDestroyed;
 };

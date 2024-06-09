@@ -14,6 +14,7 @@ ARFLauncherProjectile::ARFLauncherProjectile()
     , DoFullDamage(false)
     , TimeBeforeDestroy(5.f)
     , ShotDirection(FVector::ZeroVector)
+    , IsDestroyed(false)
 {
     PrimaryActorTick.bCanEverTick = false;
     SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
@@ -36,16 +37,34 @@ void ARFLauncherProjectile::BeginPlay()
     ProjectileMovementComponent->Velocity = ShotDirection * ProjectileMovementComponent->InitialSpeed;
     SphereComponent->OnComponentHit.AddDynamic(this, &ARFLauncherProjectile::OnHit);
     SphereComponent->IgnoreActorWhenMoving(GetOwner(), true);
+    OnDestroyed.AddDynamic(this, &ARFLauncherProjectile::OnDestroy);
     SetLifeSpan(TimeBeforeDestroy);
 }
 
 void ARFLauncherProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, FHitResult const& Hit)
 {
-    if (!GetWorld())
+    ApplyDamage();
+}
+
+AController* ARFLauncherProjectile::GetController() const
+{
+    auto const Pawn = Cast<APawn>(GetOwner());
+    return Pawn ? Pawn->GetController() : nullptr;
+}
+
+void ARFLauncherProjectile::OnDestroy(AActor* DestroyedActor)
+{
+    ApplyDamage();
+}
+
+void ARFLauncherProjectile::ApplyDamage()
+{
+    if (!GetWorld() || IsDestroyed)
         return;
+    IsDestroyed = true;
     ProjectileMovementComponent->StopMovementImmediately();
 
-    DrawDebugSphere(GetWorld(), GetActorLocation(), DamageRadius, 24, FColor::Red, false, -1.0f, 0, 1.0f);
+    DrawDebugSphere(GetWorld(), GetActorLocation(), DamageRadius, 24, FColor::Red, false, 3.0f, 0, 1.0f);
     UGameplayStatics::ApplyRadialDamage(GetWorld(), //
         MaxDamageAmount,                            //
         GetActorLocation(),                         //
@@ -58,10 +77,4 @@ void ARFLauncherProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* Oth
         ECollisionChannel::ECC_Visibility);
 
     Destroy();
-}
-
-AController* ARFLauncherProjectile::GetController() const
-{
-    auto const Pawn = Cast<Pawn>(GetOwner());
-    return Pawn ? Pawn->GetController() : nullptr;
 }
