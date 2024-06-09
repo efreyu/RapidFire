@@ -9,9 +9,11 @@
 ARFLauncherProjectile::ARFLauncherProjectile()
     : SphereComponent(nullptr)
     , ProjectileMovementComponent(nullptr)
-    , ShotDirection(FVector::ZeroVector)
     , DamageRadius(300.f)
     , MaxDamageAmount(100.f)
+    , DoFullDamage(false)
+    , TimeBeforeDestroy(5.f)
+    , ShotDirection(FVector::ZeroVector)
 {
     PrimaryActorTick.bCanEverTick = false;
     SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
@@ -32,8 +34,9 @@ void ARFLauncherProjectile::BeginPlay()
     check(ProjectileMovementComponent);
     check(SphereComponent);
     ProjectileMovementComponent->Velocity = ShotDirection * ProjectileMovementComponent->InitialSpeed;
-    SetLifeSpan(5.f);
     SphereComponent->OnComponentHit.AddDynamic(this, &ARFLauncherProjectile::OnHit);
+    SphereComponent->IgnoreActorWhenMoving(GetOwner(), true);
+    SetLifeSpan(TimeBeforeDestroy);
 }
 
 void ARFLauncherProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, FHitResult const& Hit)
@@ -41,6 +44,24 @@ void ARFLauncherProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* Oth
     if (!GetWorld())
         return;
     ProjectileMovementComponent->StopMovementImmediately();
-    // todo make damage
+
+    DrawDebugSphere(GetWorld(), GetActorLocation(), DamageRadius, 24, FColor::Red, false, -1.0f, 0, 1.0f);
+    UGameplayStatics::ApplyRadialDamage(GetWorld(), //
+        MaxDamageAmount,                            //
+        GetActorLocation(),                         //
+        DamageRadius,                               //
+        UDamageType::StaticClass(),                 //
+        TArray<AActor*>({ GetOwner() }),            //
+        this,                                       //
+        GetController(),                            //
+        DoFullDamage,                               //
+        ECollisionChannel::ECC_Visibility);
+
     Destroy();
+}
+
+AController* ARFLauncherProjectile::GetController() const
+{
+    auto const Pawn = Cast<Pawn>(GetOwner());
+    return Pawn ? Pawn->GetController() : nullptr;
 }

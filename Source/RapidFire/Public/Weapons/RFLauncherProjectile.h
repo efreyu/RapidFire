@@ -24,6 +24,8 @@ protected:
     UFUNCTION()
     void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, FHitResult const& Hit);
 
+    AController* GetController() const;
+
     UPROPERTY(VisibleDefaultsOnly, Category = "Weapon")
     USphereComponent* SphereComponent;
 
@@ -35,6 +37,12 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
     float MaxDamageAmount;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+    bool DoFullDamage;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+    float TimeBeforeDestroy;
 
 private:
     FVector ShotDirection;
