@@ -21,11 +21,20 @@ public:
 protected:
     virtual void BeginPlay() override;
 
+    UFUNCTION()
+    void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, FHitResult const& Hit);
+
     UPROPERTY(VisibleDefaultsOnly, Category = "Weapon")
     USphereComponent* SphereComponent;
 
     UPROPERTY(VisibleDefaultsOnly, Category = "Weapon")
     UProjectileMovementComponent* ProjectileMovementComponent;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+    float DamageRadius;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+    float MaxDamageAmount;
 
 private:
     FVector ShotDirection;
