@@ -3,7 +3,6 @@
 #include "Weapons/RFBaseWeapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "DrawDebugHelpers.h"
-#include "Engine/DamageEvents.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
@@ -11,7 +10,6 @@
 ARFBaseWeapon::ARFBaseWeapon()
     : SkeletalMeshComponent(CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent"))
     , MuzzleSocketName(RapidFire::Constants::Socket::MuzzleSocket)
-    , DamageAmount(10.f)
     , ShootDirectionRange(10000.f)
 {
     PrimaryActorTick.bCanEverTick = false;
@@ -78,14 +76,6 @@ bool ARFBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
     TraceStart = ViewLocation;
     TraceEnd = TraceStart + ViewRotation.Vector() * ShootDirectionRange;
     return true;
-}
-
-void ARFBaseWeapon::MakeDamage(FHitResult const& HitResult)
-{
-    if (!HitResult.GetActor())
-        return;
-
-    HitResult.GetActor()->TakeDamage(DamageAmount, FDamageEvent{}, GetPlayerController(), this);
 }
 
 void ARFBaseWeapon::MakeHit(FHitResult& HitResult, FVector const& TraceStart, FVector const& TraceEnd) const

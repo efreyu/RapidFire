@@ -31,10 +31,10 @@ protected:
 
     AController* GetController() const;
 
-    UPROPERTY(VisibleDefaultsOnly, Category = "Weapon")
+    UPROPERTY(VisibleAnywhere, Category = "Weapon")
     USphereComponent* SphereComponent;
 
-    UPROPERTY(VisibleDefaultsOnly, Category = "Weapon")
+    UPROPERTY(VisibleAnywhere, Category = "Weapon")
     UProjectileMovementComponent* ProjectileMovementComponent;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")

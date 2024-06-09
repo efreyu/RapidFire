@@ -2,12 +2,14 @@
 
 #include "Weapons/RFRifleWeapon.h"
 #include "DrawDebugHelpers.h"
+#include "Engine/DamageEvents.h"
 #include "Engine/World.h"
 
 ARFRifleWeapon::ARFRifleWeapon()
     : ARFBaseWeapon()
     , ShotRate(0.1f)
     , BulletSpread(1.5f)
+    , DamageAmount(10.f)
 {
     //
 }
@@ -56,4 +58,12 @@ bool ARFRifleWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
     auto const HalfRad = FMath::DegreesToRadians(BulletSpread);
     TraceEnd = TraceStart + FMath::VRandCone(ViewRotation.Vector(), HalfRad) * ShootDirectionRange;
     return true;
+}
+
+void ARFRifleWeapon::MakeDamage(FHitResult const& HitResult)
+{
+    if (!HitResult.GetActor())
+        return;
+
+    HitResult.GetActor()->TakeDamage(DamageAmount, FDamageEvent{}, GetPlayerController(), this);
 }
