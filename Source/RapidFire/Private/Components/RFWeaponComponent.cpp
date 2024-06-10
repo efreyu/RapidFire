@@ -7,8 +7,9 @@
 #include "Weapons/RFBaseWeapon.h"
 
 URFWeaponComponent::URFWeaponComponent()
-    : WeaponClass(nullptr)
-    , WeaponAttachSocketName(RapidFire::Socket::WeaponSocket)
+    : WeaponClasses({})
+    , WeaponHandSocketName(RapidFire::Socket::WeaponSocket)
+    , WeaponArmorySocketName(RapidFire::Socket::WeaponSocket)
     , CurrentWeapon(nullptr)
 {
     PrimaryComponentTick.bCanEverTick = false;
@@ -22,14 +23,14 @@ void URFWeaponComponent::BeginPlay()
 
 void URFWeaponComponent::SpawnWeapon()
 {
-    if (!GetWorld() || !WeaponClass)
+    if (!GetWorld() || !WeaponClasses.IsEmpty())
         return;
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character)
         return;
     CurrentWeapon = GetWorld()->SpawnActor<ARFBaseWeapon>(WeaponClass);
     auto const AttachmentRules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, false);
-    CurrentWeapon->AttachToComponent(Character->GetMesh(), AttachmentRules, WeaponAttachSocketName);
+    CurrentWeapon->AttachToComponent(Character->GetMesh(), AttachmentRules, WeaponHandSocketName);
     CurrentWeapon->SetOwner(GetOwner());
 }
 

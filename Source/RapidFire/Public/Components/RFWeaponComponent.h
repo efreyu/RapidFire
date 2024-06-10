@@ -17,6 +17,11 @@ namespace RapidFire::inline Constants
     namespace Socket
     {
         constexpr inline auto WeaponSocket{ TEXT("WeaponSocket") };
+        constexpr inline auto WeaponBackSlot{ TEXT("WeaponBackSlot") };
+    } // namespace Socket
+    namespace Input
+    {
+        constexpr inline auto NextWeapon{ TEXT("NextWeapon") };
     }
 } // namespace RapidFire::inline Constants
 
@@ -39,10 +44,13 @@ private:
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    TSubclassOf<ARFBaseWeapon> WeaponClass;
+    TArray<TSubclassOf<ARFBaseWeapon>> WeaponClasses;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    FName WeaponAttachSocketName;
+    FName WeaponHandSocketName;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+    FName WeaponArmorySocketName;
 
 private:
     UPROPERTY()
