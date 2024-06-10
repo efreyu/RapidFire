@@ -26,6 +26,21 @@ void URFWeaponComponent::BeginPlay()
     EquipWeapon(CurrentWeaponIndex);
 }
 
+void URFWeaponComponent::EndPlay(EEndPlayReason::Type const EndPlayReason)
+{
+    CurrentWeapon = nullptr;
+    for (auto const Weapon : Weapons)
+    {
+        if (Weapon)
+        {
+            Weapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+            Weapon->Destroy();
+        }
+    }
+    Weapons.Empty();
+    Super::EndPlay(EndPlayReason);
+}
+
 void URFWeaponComponent::SpawnWeapons()
 {
     auto const Character = Cast<ACharacter>(GetOwner());

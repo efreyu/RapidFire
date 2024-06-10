@@ -35,6 +35,7 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(EEndPlayReason::Type const EndPlayReason) override;
 
 private:
     void SpawnWeapons();
