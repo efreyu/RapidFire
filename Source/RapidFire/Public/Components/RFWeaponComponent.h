@@ -19,10 +19,6 @@ namespace RapidFire::inline Constants
         constexpr inline auto WeaponSocket{ TEXT("WeaponSocket") };
         constexpr inline auto WeaponBackSlot{ TEXT("WeaponBackSlot") };
     } // namespace Socket
-    namespace Input
-    {
-        constexpr inline auto NextWeapon{ TEXT("NextWeapon") };
-    }
 } // namespace RapidFire::inline Constants
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -35,12 +31,15 @@ public:
 
     void StartFire();
     void StopFire();
+    void SetNextWeapon();
 
 protected:
     virtual void BeginPlay() override;
 
 private:
-    void SpawnWeapon();
+    void SpawnWeapons();
+    void AttachWeaponToSocket(ARFBaseWeapon* Weapon, FName const& WeaponSocketName);
+    void EquipWeapon(int32 Index);
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
@@ -55,4 +54,9 @@ protected:
 private:
     UPROPERTY()
     ARFBaseWeapon* CurrentWeapon;
+
+    int32 CurrentWeaponIndex;
+
+    UPROPERTY()
+    TArray<ARFBaseWeapon*> Weapons;
 };
