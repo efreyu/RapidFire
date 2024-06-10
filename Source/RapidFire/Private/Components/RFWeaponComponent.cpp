@@ -10,8 +10,8 @@ DEFINE_LOG_CATEGORY_STATIC(LogWeaponComponent, All, All);
 
 URFWeaponComponent::URFWeaponComponent()
     : WeaponClasses({})
-    , WeaponHandSocketName(RapidFire::Socket::WeaponSocket)
-    , WeaponArmorySocketName(RapidFire::Socket::WeaponBackSlot)
+    , WeaponHandSocketName(RapidFire::Socket::WeaponHandSocketName)
+    , WeaponArmorySocketName(RapidFire::Socket::WeaponArmorySocketName)
     , CurrentWeapon(nullptr)
     , CurrentWeaponIndex(0)
     , Weapons({})

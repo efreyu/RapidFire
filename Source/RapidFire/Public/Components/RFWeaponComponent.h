@@ -16,8 +16,8 @@ namespace RapidFire::inline Constants
     } // namespace Components
     namespace Socket
     {
-        constexpr inline auto WeaponSocket{ TEXT("WeaponSocket") };
-        constexpr inline auto WeaponBackSlot{ TEXT("WeaponBackSlot") };
+        constexpr inline auto WeaponHandSocketName{ TEXT("WeaponHandSocket") };
+        constexpr inline auto WeaponArmorySocketName{ TEXT("WeaponArmorySocket") };
     } // namespace Socket
 } // namespace RapidFire::inline Constants
 
