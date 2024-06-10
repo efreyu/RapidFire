@@ -22,6 +22,8 @@ URFWeaponComponent::URFWeaponComponent()
 void URFWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();
+    check(WeaponClasses.Num() > 0);
+    check(Weapons.Num() == 0);
     SpawnWeapons();
     EquipWeapon(CurrentWeaponIndex);
 }
@@ -44,7 +46,7 @@ void URFWeaponComponent::EndPlay(EEndPlayReason::Type const EndPlayReason)
 void URFWeaponComponent::SpawnWeapons()
 {
     auto const Character = Cast<ACharacter>(GetOwner());
-    if (!Character || !GetWorld() || !WeaponClasses.IsEmpty())
+    if (!Character || !GetWorld() || WeaponClasses.IsEmpty())
         return;
 
     for (auto const& WeaponClass : WeaponClasses)
