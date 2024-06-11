@@ -4,6 +4,6 @@
 
 void URFEquipFinishedAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation)
 {
-    OnNotified.Broadcast();
+    OnNotified.Broadcast(MeshComp);
     Super::Notify(MeshComp, Animation);
 }

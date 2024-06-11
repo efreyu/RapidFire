@@ -43,7 +43,7 @@ private:
     void EquipWeapon(int32 Index);
     void PlayAnimMontage(UAnimMontage* AnimMontage);
     void InitAnimations();
-    void OnEquipFinished();
+    void OnEquipFinished(USkeletalMeshComponent* MeshComp);
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")

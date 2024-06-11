@@ -112,7 +112,6 @@ void URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage)
 
 void URFWeaponComponent::InitAnimations()
 {
-    // RFEquipFinishedAnimNotify
     if (!EquipAnimMontage)
         return;
     auto const EquipFinishedNotify = Cast<URFEquipFinishedAnimNotify>(EquipAnimMontage->Notifies[0].Notify);
@@ -126,8 +125,11 @@ void URFWeaponComponent::InitAnimations()
     }
 }
 
-void URFWeaponComponent::OnEquipFinished()
+void URFWeaponComponent::OnEquipFinished(USkeletalMeshComponent* MeshComp)
 {
+    auto const Character = Cast<ACharacter>(GetOwner());
+    if (!Character || MeshComp != Character->GetMesh())
+        return;
     UE_LOG(LogWeaponComponent, Display, TEXT("EquipFinished"));
 }
 

@@ -6,7 +6,7 @@
 #include "CoreMinimal.h"
 #include "RFEquipFinishedAnimNotify.generated.h"
 
-DECLARE_MULTICAST_DELEGATE(FOnNotifySignature);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnNotifySignature, USkeletalMeshComponent*);
 
 UCLASS()
 class RAPIDFIRE_API URFEquipFinishedAnimNotify : public UAnimNotify
