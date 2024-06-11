@@ -42,6 +42,8 @@ private:
     void AttachWeaponToSocket(ARFBaseWeapon* Weapon, FName const& WeaponSocketName);
     void EquipWeapon(int32 Index);
     void PlayAnimMontage(UAnimMontage* AnimMontage);
+    void InitAnimations();
+    void OnEquipFinished();
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")

@@ -19,6 +19,7 @@ public class RapidFire : ModuleRules
             "RapidFire/Public/Dev",
             "RapidFire/Public/Weapons",
             "RapidFire/Public/UI",
+            "RapidFire/Public/Animations"
         });
 
         // Uncomment if you are using Slate UI

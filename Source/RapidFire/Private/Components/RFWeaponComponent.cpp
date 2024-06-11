@@ -2,6 +2,7 @@
 
 #include "Components/RFWeaponComponent.h"
 
+#include "Animations/RFEquipFinishedAnimNotify.h"
 #include "GameFramework/Character.h"
 #include "RFBaseCharacter.h"
 #include "Weapons/RFBaseWeapon.h"
@@ -24,6 +25,7 @@ void URFWeaponComponent::BeginPlay()
     Super::BeginPlay();
     check(WeaponClasses.Num() > 0);
     check(Weapons.Num() == 0);
+    InitAnimations();
     SpawnWeapons();
     EquipWeapon(CurrentWeaponIndex);
 }
@@ -99,12 +101,34 @@ void URFWeaponComponent::EquipWeapon(int32 Index)
         PlayAnimMontage(EquipAnimMontage);
     }
 }
+
 void URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage)
 {
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character)
         return;
     Character->PlayAnimMontage(AnimMontage);
+}
+
+void URFWeaponComponent::InitAnimations()
+{
+    // RFEquipFinishedAnimNotify
+    if (!EquipAnimMontage)
+        return;
+    auto const EquipFinishedNotify = Cast<URFEquipFinishedAnimNotify>(EquipAnimMontage->Notifies[0].Notify);
+    for (auto const NotifyEvent : EquipAnimMontage->Notifies)
+    {
+        if (auto EquipFinishNotify = Cast<URFEquipFinishedAnimNotify>(NotifyEvent.Notify))
+        {
+            EquipFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnEquipFinished);
+            break;
+        }
+    }
+}
+
+void URFWeaponComponent::OnEquipFinished()
+{
+    UE_LOG(LogWeaponComponent, Display, TEXT("EquipFinished"));
 }
 
 void URFWeaponComponent::StartFire()
