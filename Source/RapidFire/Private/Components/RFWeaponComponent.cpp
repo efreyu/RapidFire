@@ -22,9 +22,9 @@ URFWeaponComponent::URFWeaponComponent()
 void URFWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();
-    check(WeaponClasses.Num() > 0)
-        check(Weapons.Num() == 0)
-            SpawnWeapons();
+    check(WeaponClasses.Num() > 0);
+    check(Weapons.Num() == 0);
+    SpawnWeapons();
     EquipWeapon(CurrentWeaponIndex);
 }
 
