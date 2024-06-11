@@ -1,0 +1,3 @@
+[submodule "Content/ExternalContent"]
+	path = Content/ExternalContent
+	url = git@github.com:efreyu/RFExternalContent.git
