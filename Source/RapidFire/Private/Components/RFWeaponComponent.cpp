@@ -22,9 +22,9 @@ URFWeaponComponent::URFWeaponComponent()
 void URFWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();
-    check(WeaponClasses.Num() > 0);
-    check(Weapons.Num() == 0);
-    SpawnWeapons();
+    check(WeaponClasses.Num() > 0)
+        check(Weapons.Num() == 0)
+            SpawnWeapons();
     EquipWeapon(CurrentWeaponIndex);
 }
 
@@ -94,6 +94,17 @@ void URFWeaponComponent::EquipWeapon(int32 Index)
     {
         AttachWeaponToSocket(CurrentWeapon, WeaponHandSocketName);
     }
+    if (EquipAnimMontage)
+    {
+        PlayAnimMontage(EquipAnimMontage);
+    }
+}
+void URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage)
+{
+    auto const Character = Cast<ACharacter>(GetOwner());
+    if (!Character)
+        return;
+    Character->PlayAnimMontage(AnimMontage);
 }
 
 void URFWeaponComponent::StartFire()

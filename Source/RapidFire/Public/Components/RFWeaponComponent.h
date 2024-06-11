@@ -41,16 +41,19 @@ private:
     void SpawnWeapons();
     void AttachWeaponToSocket(ARFBaseWeapon* Weapon, FName const& WeaponSocketName);
     void EquipWeapon(int32 Index);
+    void PlayAnimMontage(UAnimMontage* AnimMontage);
 
 protected:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     TArray<TSubclassOf<ARFBaseWeapon>> WeaponClasses;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     FName WeaponHandSocketName;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     FName WeaponArmorySocketName;
+    UPROPERTY(EditDefaultsOnly, Category = "Animation")
+    UAnimMontage* EquipAnimMontage;
 
 private:
     UPROPERTY()
