@@ -4,7 +4,9 @@
 #include "Weapons/RFLauncherProjectile.h"
 
 ARFLauncherWeapon::ARFLauncherWeapon()
-    : ProjectileClass(ARFLauncherProjectile::StaticClass()) {}
+{
+    ProjectileClass = ARFLauncherProjectile::StaticClass();
+}
 
 void ARFLauncherWeapon::StartFire()
 {

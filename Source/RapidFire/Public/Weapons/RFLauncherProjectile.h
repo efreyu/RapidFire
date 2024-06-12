@@ -32,24 +32,24 @@ protected:
     AController* GetController() const;
 
     UPROPERTY(VisibleAnywhere, Category = "Weapon")
-    USphereComponent* SphereComponent;
+    USphereComponent* SphereComponent{ nullptr };
 
     UPROPERTY(VisibleAnywhere, Category = "Weapon")
-    UProjectileMovementComponent* ProjectileMovementComponent;
+    UProjectileMovementComponent* ProjectileMovementComponent{ nullptr };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float DamageRadius;
+    float DamageRadius{ 300.f };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float MaxDamageAmount;
+    float MaxDamageAmount{ 100.f };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    bool DoFullDamage;
+    bool DoFullDamage{ false };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float TimeBeforeDestroy;
+    float TimeBeforeDestroy{ 5.f };
 
 private:
-    FVector ShotDirection;
-    bool IsDestroyed;
+    FVector ShotDirection{ FVector::ZeroVector };
+    bool IsDestroyed{ false };
 };

@@ -5,14 +5,7 @@
 #include "Engine/DamageEvents.h"
 #include "Engine/World.h"
 
-ARFRifleWeapon::ARFRifleWeapon()
-    : ARFBaseWeapon()
-    , ShotRate(0.1f)
-    , BulletSpread(1.5f)
-    , DamageAmount(10.f)
-{
-    //
-}
+ARFRifleWeapon::ARFRifleWeapon() {}
 
 void ARFRifleWeapon::StartFire()
 {

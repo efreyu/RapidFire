@@ -7,14 +7,6 @@
 #include "Kismet/GameplayStatics.h"
 
 ARFLauncherProjectile::ARFLauncherProjectile()
-    : SphereComponent(nullptr)
-    , ProjectileMovementComponent(nullptr)
-    , DamageRadius(300.f)
-    , MaxDamageAmount(100.f)
-    , DoFullDamage(false)
-    , TimeBeforeDestroy(5.f)
-    , ShotDirection(FVector::ZeroVector)
-    , IsDestroyed(false)
 {
     PrimaryActorTick.bCanEverTick = false;
     SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");

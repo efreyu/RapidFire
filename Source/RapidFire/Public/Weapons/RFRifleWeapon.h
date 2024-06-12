@@ -23,13 +23,13 @@ protected:
 
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float ShotRate;
+    float ShotRate{ 0.1f };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "RifleWeapon")
-    float BulletSpread;
+    float BulletSpread{ 1.5f };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float DamageAmount;
+    float DamageAmount{ 10.f };
 
 private:
     FTimerHandle ShotTimerHandle;
