@@ -14,7 +14,7 @@ class RAPIDFIRE_API URFEquipFinishedAnimNotify : public UAnimNotify
     GENERATED_BODY()
 
 public:
-    void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation) override;
+    void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, FAnimNotifyEventReference const& EventReference) override;
 
     FOnNotifySignature OnNotified;
 };

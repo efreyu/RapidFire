@@ -10,7 +10,8 @@ ARFLauncherWeapon::ARFLauncherWeapon()
 
 void ARFLauncherWeapon::StartFire()
 {
-    MakeShot();
+    if (CurrentAmmo.CanShot())
+        MakeShot();
 }
 
 void ARFLauncherWeapon::StopFire()
@@ -20,7 +21,7 @@ void ARFLauncherWeapon::StopFire()
 
 void ARFLauncherWeapon::MakeShot()
 {
-    if (!GetWorld())
+    if (!GetWorld() || !CurrentAmmo.MakeShot())
         return;
 
     FVector TraceStart, TraceEnd;
@@ -34,8 +35,7 @@ void ARFLauncherWeapon::MakeShot()
     FVector const Direction = (EndPoint - GetMuzzleLocation()).GetSafeNormal();
 
     FTransform const SpawnTransform(FRotator::ZeroRotator, GetMuzzleLocation());
-    auto const Projectile = GetWorld()->SpawnActorDeferred<ARFLauncherProjectile>(ProjectileClass, SpawnTransform);
-    if (Projectile)
+    if (auto const Projectile = GetWorld()->SpawnActorDeferred<ARFLauncherProjectile>(ProjectileClass, SpawnTransform))
     {
         Projectile->SetShotDirection(Direction);
         Projectile->SetOwner(GetOwner());

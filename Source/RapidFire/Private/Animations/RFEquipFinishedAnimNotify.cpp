@@ -2,8 +2,8 @@
 
 #include "Animations/RFEquipFinishedAnimNotify.h"
 
-void URFEquipFinishedAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation)
+void URFEquipFinishedAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, FAnimNotifyEventReference const& EventReference)
 {
     OnNotified.Broadcast(MeshComp);
-    Super::Notify(MeshComp, Animation);
+    Super::Notify(MeshComp, Animation, EventReference);
 }

@@ -22,7 +22,7 @@ void ARFRifleWeapon::StopFire()
 
 void ARFRifleWeapon::MakeShot()
 {
-    if (!GetWorld())
+    if (!GetWorld() || !CurrentAmmo.MakeShot())
         return;
 
     FVector TraceStart, TraceEnd;

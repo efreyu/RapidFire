@@ -22,16 +22,12 @@ struct FWeaponAmmoData
 
     bool IsEmpty() const;
     bool IsClipEmpty() const;
-    bool Reload();
+    bool Reload(bool bNoAnim = false);
     bool CanShot() const;
     bool MakeShot();
-    void LogAmmo();
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
     int32 TotalAmmo{ 55 };
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
-    int32 ClipAmmo{ 15 };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
     int32 ShotCost{ 1 };
@@ -44,6 +40,11 @@ struct FWeaponAmmoData
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
     bool bIsInfinity{ false };
+
+private:
+    void LogAmmo();
+
+    int32 ClipAmmo{ 0 };
 };
 
 UCLASS()
@@ -79,6 +80,5 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     FWeaponAmmoData BaseWeaponAmmoData{};
 
-private:
     FWeaponAmmoData CurrentAmmo;
 };
