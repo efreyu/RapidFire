@@ -10,13 +10,6 @@
 DEFINE_LOG_CATEGORY_STATIC(LogWeaponComponent, All, All);
 
 URFWeaponComponent::URFWeaponComponent()
-    : WeaponClasses({})
-    , WeaponHandSocketName(RapidFire::Socket::WeaponHandSocketName)
-    , WeaponArmorySocketName(RapidFire::Socket::WeaponArmorySocketName)
-    , CurrentWeapon(nullptr)
-    , CurrentWeaponIndex(0)
-    , Weapons({})
-    , IsEquipAnimPlaying(false)
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
@@ -108,7 +101,7 @@ void URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage)
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character)
         return;
-    IsEquipAnimPlaying = true;
+    bIsEquipAnimPlaying = true;
     Character->PlayAnimMontage(AnimMontage);
 }
 
@@ -132,7 +125,7 @@ void URFWeaponComponent::OnEquipFinished(USkeletalMeshComponent* MeshComp)
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character || MeshComp != Character->GetMesh())
         return;
-    IsEquipAnimPlaying = false;
+    bIsEquipAnimPlaying = false;
 }
 
 void URFWeaponComponent::StartFire()
@@ -159,10 +152,10 @@ void URFWeaponComponent::SetNextWeapon()
 
 bool URFWeaponComponent::CanFire() const
 {
-    return CurrentWeapon && !IsEquipAnimPlaying;
+    return CurrentWeapon && !bIsEquipAnimPlaying;
 }
 
 bool URFWeaponComponent::CanEquip() const
 {
-    return !IsEquipAnimPlaying;
+    return !bIsEquipAnimPlaying;
 }

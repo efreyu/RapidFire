@@ -21,6 +21,27 @@ namespace RapidFire::inline Constants
     } // namespace Socket
 } // namespace RapidFire::inline Constants
 
+USTRUCT(BlueprintType)
+struct FWeaponAmmoData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
+    int32 MaxAmmo{ 15 };
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
+    int32 ShotCost{ 1 };
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
+    float TimeBetweenShots{ 0.2f };
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
+    float ReloadTime{ 1.f };
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
+    bool bIsInfinity{ false };
+};
+
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RAPIDFIRE_API URFWeaponComponent : public UActorComponent
 {
@@ -49,24 +70,28 @@ private:
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-    TArray<TSubclassOf<ARFBaseWeapon>> WeaponClasses;
+    TArray<TSubclassOf<ARFBaseWeapon>> WeaponClasses{ {} };
 
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-    FName WeaponHandSocketName;
+    FName WeaponHandSocketName{ RapidFire::Socket::WeaponHandSocketName };
 
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-    FName WeaponArmorySocketName;
+    FName WeaponArmorySocketName{ RapidFire::Socket::WeaponArmorySocketName };
+
     UPROPERTY(EditDefaultsOnly, Category = "Animation")
-    UAnimMontage* EquipAnimMontage;
+    UAnimMontage* EquipAnimMontage{ nullptr };
+
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+    FWeaponAmmoData BaseWeaponAmmoData{};
 
 private:
     UPROPERTY()
-    ARFBaseWeapon* CurrentWeapon;
+    ARFBaseWeapon* CurrentWeapon{ nullptr };
 
-    int32 CurrentWeaponIndex;
+    int32 CurrentWeaponIndex{ 0 };
 
     UPROPERTY()
-    TArray<ARFBaseWeapon*> Weapons;
+    TArray<ARFBaseWeapon*> Weapons{ {} };
 
-    bool IsEquipAnimPlaying;
+    bool bIsEquipAnimPlaying{ false };
 };
