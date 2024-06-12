@@ -18,24 +18,27 @@ void ARFBaseWeapon::BeginPlay()
 {
     Super::BeginPlay();
     check(SkeletalMeshComponent)
+    CurrentAmmo = BaseWeaponAmmoData;
 }
 
 void ARFBaseWeapon::StartFire()
 {
-    // Check this should be implemented in derived classes
     checkNoEntry()
 }
 
 void ARFBaseWeapon::StopFire()
 {
-    // Check this should be implemented in derived classes
     checkNoEntry()
 }
 
 void ARFBaseWeapon::MakeShot()
 {
-    // Check this should be implemented in derived classes
     checkNoEntry()
+}
+
+bool ARFBaseWeapon::CanFire() const
+{
+    return CurrentAmmo.CanShot();
 }
 
 APlayerController* ARFBaseWeapon::GetPlayerController() const
@@ -86,4 +89,52 @@ void ARFBaseWeapon::MakeHit(FHitResult& HitResult, FVector const& TraceStart, FV
 FVector ARFBaseWeapon::GetMuzzleLocation() const
 {
     return SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName).GetLocation();
+}
+
+bool FWeaponAmmoData::IsEmpty() const
+{
+    if (bIsInfinity)
+        return false;
+    return TotalAmmo == 0 || IsClipEmpty();
+}
+
+bool FWeaponAmmoData::IsClipEmpty() const
+{
+    if (bIsInfinity)
+        return false;
+    return ClipAmmo - ShotCost < 0;
+}
+
+bool FWeaponAmmoData::Reload()
+{
+    LogAmmo();
+    if (IsEmpty())
+        return false;
+    TotalAmmo += ClipAmmo;
+    ClipAmmo = 0;
+    auto const Amount = FMath::Min(TotalAmmo, ReloadClipMax);
+    ClipAmmo = Amount;
+    TotalAmmo -= Amount;
+    return true;
+}
+
+bool FWeaponAmmoData::CanShot() const
+{
+    return bIsInfinity || ClipAmmo - ShotCost >= 0;
+}
+
+bool FWeaponAmmoData::MakeShot()
+{
+    LogAmmo();
+    if (CanShot())
+    {
+        ClipAmmo -= ShotCost;
+        return true;
+    }
+    return false;
+}
+
+void FWeaponAmmoData::LogAmmo()
+{
+    UE_LOG(LogTemp, Warning, TEXT("TotalAmmo: '%d', ClipAmmo: '%d'"), TotalAmmo, ClipAmmo);
 }

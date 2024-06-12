@@ -12,7 +12,6 @@ DEFINE_LOG_CATEGORY_STATIC(LogWeaponComponent, All, All);
 URFWeaponComponent::URFWeaponComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
-    CurrentAmmo = BaseWeaponAmmoData;
 }
 
 void URFWeaponComponent::BeginPlay()
@@ -153,48 +152,10 @@ void URFWeaponComponent::SetNextWeapon()
 
 bool URFWeaponComponent::CanFire() const
 {
-    return CurrentWeapon && !bIsEquipAnimPlaying;
+    return CurrentWeapon && !bIsEquipAnimPlaying && CurrentWeapon->CanFire();
 }
 
 bool URFWeaponComponent::CanEquip() const
 {
     return !bIsEquipAnimPlaying;
-}
-
-bool FWeaponAmmoData::IsEmpty() const
-{
-    if (bIsInfinity)
-        return false;
-    return TotalAmmo == 0 || IsClipEmpty();
-}
-
-bool FWeaponAmmoData::IsClipEmpty() const
-{
-    if (bIsInfinity)
-        return false;
-    return ClipAmmo - ShotCost < 0;
-}
-
-bool FWeaponAmmoData::Reload()
-{
-    if (IsEmpty())
-        return false;
-    TotalAmmo += ClipAmmo;
-    ClipAmmo = 0;
-    auto const Amount = FMath::Min(TotalAmmo, ReloadClipMax);
-    ClipAmmo = Amount;
-    TotalAmmo -= Amount;
-    return true;
-}
-
-bool FWeaponAmmoData::UseShot()
-{
-    if (bIsInfinity)
-        return true;
-    if (ClipAmmo - ShotCost >= 0)
-    {
-        ClipAmmo -= ShotCost;
-        return true;
-    }
-    return false;
 }
