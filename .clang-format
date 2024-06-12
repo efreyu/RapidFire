@@ -1,4 +1,18 @@
-StatementMacros: ['UPROPERTY', 'UFUNCTION', 'UCLASS', 'USTRUCT', 'UENUM', 'UINTERFACE', 'GENERATED_BODY']
+StatementMacros:
+  - UPROPERTY
+  - UFUNCTION
+  - UCLASS
+  - USTRUCT
+  - UENUM
+  - UINTERFACE
+  - GENERATED_BODY
+  - check
+  - checkf
+  - verify
+  - verifyf
+  - checkCode
+  - checkNoEntry
+  - checkAtCompileTime
 BasedOnStyle: LLVM
 
 AccessModifierOffset: -4

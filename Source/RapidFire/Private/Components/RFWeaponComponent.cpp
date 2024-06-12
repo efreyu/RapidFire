@@ -16,6 +16,7 @@ URFWeaponComponent::URFWeaponComponent()
     , CurrentWeapon(nullptr)
     , CurrentWeaponIndex(0)
     , Weapons({})
+    , IsEquipAnimPlaying(false)
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
@@ -23,8 +24,8 @@ URFWeaponComponent::URFWeaponComponent()
 void URFWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();
-    check(WeaponClasses.Num() > 0);
-    check(Weapons.Num() == 0);
+    check(WeaponClasses.Num() > 0)
+    check(Weapons.Num() == 0)
     InitAnimations();
     SpawnWeapons();
     EquipWeapon(CurrentWeaponIndex);
@@ -98,6 +99,7 @@ void URFWeaponComponent::EquipWeapon(int32 Index)
     }
     if (EquipAnimMontage)
     {
+        IsEquipAnimPlaying = true;
         PlayAnimMontage(EquipAnimMontage);
     }
 }
@@ -130,12 +132,12 @@ void URFWeaponComponent::OnEquipFinished(USkeletalMeshComponent* MeshComp)
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character || MeshComp != Character->GetMesh())
         return;
-    UE_LOG(LogWeaponComponent, Display, TEXT("EquipFinished"));
+    IsEquipAnimPlaying = false;
 }
 
 void URFWeaponComponent::StartFire()
 {
-    if (!CurrentWeapon)
+    if (!CanFire())
         return;
     CurrentWeapon->StartFire();
 }
@@ -151,4 +153,14 @@ void URFWeaponComponent::SetNextWeapon()
 {
     CurrentWeaponIndex = (CurrentWeaponIndex + 1) % Weapons.Num();
     EquipWeapon(CurrentWeaponIndex);
+}
+
+bool URFWeaponComponent::CanFire() const
+{
+    return CurrentWeapon && !IsEquipAnimPlaying;
+}
+
+bool URFWeaponComponent::CanEquip() const
+{
+    return !IsEquipAnimPlaying;
 }

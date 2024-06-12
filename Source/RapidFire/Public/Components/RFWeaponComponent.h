@@ -44,6 +44,8 @@ private:
     void PlayAnimMontage(UAnimMontage* AnimMontage);
     void InitAnimations();
     void OnEquipFinished(USkeletalMeshComponent* MeshComp);
+    bool CanFire() const;
+    bool CanEquip() const;
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
@@ -65,4 +67,6 @@ private:
 
     UPROPERTY()
     TArray<ARFBaseWeapon*> Weapons;
+
+    bool IsEquipAnimPlaying;
 };
