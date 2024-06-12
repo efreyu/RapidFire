@@ -99,7 +99,6 @@ void URFWeaponComponent::EquipWeapon(int32 Index)
     }
     if (EquipAnimMontage)
     {
-        IsEquipAnimPlaying = true;
         PlayAnimMontage(EquipAnimMontage);
     }
 }
@@ -109,6 +108,7 @@ void URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage)
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character)
         return;
+    IsEquipAnimPlaying = true;
     Character->PlayAnimMontage(AnimMontage);
 }
 
@@ -151,6 +151,8 @@ void URFWeaponComponent::StopFire()
 
 void URFWeaponComponent::SetNextWeapon()
 {
+    if (!CanEquip())
+        return;
     CurrentWeaponIndex = (CurrentWeaponIndex + 1) % Weapons.Num();
     EquipWeapon(CurrentWeaponIndex);
 }
