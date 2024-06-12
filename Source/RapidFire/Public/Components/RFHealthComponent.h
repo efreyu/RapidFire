@@ -69,8 +69,8 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage")
     FVector2D LandedDamage{ 10.f, 100.f };
 
-    FTimerHandle AutoHealTimerHandle{ 0.0f };
+    FTimerHandle AutoHealTimerHandle;
 
 private:
-    float Health;
+    float Health{ 0.0f };
 };

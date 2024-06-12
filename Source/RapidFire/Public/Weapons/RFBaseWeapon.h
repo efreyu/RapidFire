@@ -42,7 +42,5 @@ protected:
     FName MuzzleSocketName{ RapidFire::Constants::Socket::MuzzleSocket };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float ShootDirectionRange
-    {
-        10000.f;
-    };
+    float ShootDirectionRange{ 10000.f };
+};

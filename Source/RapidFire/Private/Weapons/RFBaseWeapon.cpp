@@ -17,25 +17,25 @@ ARFBaseWeapon::ARFBaseWeapon()
 void ARFBaseWeapon::BeginPlay()
 {
     Super::BeginPlay();
-    check(SkeletalMeshComponent);
+    check(SkeletalMeshComponent)
 }
 
 void ARFBaseWeapon::StartFire()
 {
     // Check this should be implemented in derived classes
-    checkNoEntry();
+    checkNoEntry()
 }
 
 void ARFBaseWeapon::StopFire()
 {
     // Check this should be implemented in derived classes
-    checkNoEntry();
+    checkNoEntry()
 }
 
 void ARFBaseWeapon::MakeShot()
 {
     // Check this should be implemented in derived classes
-    checkNoEntry();
+    checkNoEntry()
 }
 
 APlayerController* ARFBaseWeapon::GetPlayerController() const

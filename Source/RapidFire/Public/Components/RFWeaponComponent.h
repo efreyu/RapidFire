@@ -26,14 +26,22 @@ struct FWeaponAmmoData
 {
     GENERATED_BODY()
 
+    bool IsEmpty() const;
+    bool IsClipEmpty() const;
+    bool Reload();
+    bool UseShot();
+
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
-    int32 MaxAmmo{ 15 };
+    int32 TotalAmmo{ 55 };
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
+    int32 ClipAmmo{ 15 };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
     int32 ShotCost{ 1 };
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
-    float TimeBetweenShots{ 0.2f };
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
+    int32 ReloadClipMax{ 15 };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
     float ReloadTime{ 1.f };
@@ -94,4 +102,5 @@ private:
     TArray<ARFBaseWeapon*> Weapons{ {} };
 
     bool bIsEquipAnimPlaying{ false };
+    FWeaponAmmoData CurrentAmmo;
 };
