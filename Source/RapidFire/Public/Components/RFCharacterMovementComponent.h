@@ -20,5 +20,5 @@ public:
 
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement", Meta = (ClampMin = 1.5f, ClampMax = 3.0f))
-    float RunSpeedModifier;
+    float RunSpeedModifier{ 1.5f };
 };

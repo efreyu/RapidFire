@@ -7,14 +7,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 
 URFHealthComponent::URFHealthComponent()
-    : MaxHealth(100.0f)
-    , IsAutoHeal(false)
-    , AutoHealDelay(3.f)
-    , AutoHealTime(1.f)
-    , AutoHealHealth(1.f)
-    , LandedDamageVelocity(FVector2D(900.f, 1200.f))
-    , LandedDamage(FVector2D(10.f, 100.f))
-    , Health(0.0f)
 {
     PrimaryComponentTick.bCanEverTick = true;
 }

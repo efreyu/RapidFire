@@ -22,20 +22,20 @@ public:
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "DevDamageActor")
-    USceneComponent* SceneComponent;
+    USceneComponent* SceneComponent{ nullptr };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DevDamageActor", Meta = (ClampMin = 0.0f, ClampMax = 1000.0f))
-    float Radius;
+    float Radius{ 300.0f };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DevDamageActor")
-    FColor Color;
+    FColor Color{ FColor::Red };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DevDamageActor")
-    float Damage;
+    float Damage{ 10.f };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DevDamageActor")
-    bool DoFullDamage;
+    bool DoFullDamage{ false };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DevDamageActor")
-    TSubclassOf<UDamageType> DamageType;
+    TSubclassOf<UDamageType> DamageType{};
 };

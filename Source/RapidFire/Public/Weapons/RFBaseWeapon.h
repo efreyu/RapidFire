@@ -36,11 +36,13 @@ protected:
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-    USkeletalMeshComponent* SkeletalMeshComponent;
+    USkeletalMeshComponent* SkeletalMeshComponent{ nullptr };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
-    FName MuzzleSocketName;
+    FName MuzzleSocketName{ RapidFire::Constants::Socket::MuzzleSocket };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-    float ShootDirectionRange;
-};
+    float ShootDirectionRange
+    {
+        10000.f;
+    };

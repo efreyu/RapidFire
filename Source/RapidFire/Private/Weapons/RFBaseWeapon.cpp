@@ -8,10 +8,8 @@
 #include "GameFramework/Controller.h"
 
 ARFBaseWeapon::ARFBaseWeapon()
-    : SkeletalMeshComponent(CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent"))
-    , MuzzleSocketName(RapidFire::Constants::Socket::MuzzleSocket)
-    , ShootDirectionRange(10000.f)
 {
+    SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent");
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(SkeletalMeshComponent);
 }

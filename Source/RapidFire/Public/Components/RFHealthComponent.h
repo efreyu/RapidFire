@@ -49,27 +49,27 @@ private:
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health", Meta = (ClampMin = 1.0f, ClampMax = 100.0f))
-    float MaxHealth;
+    float MaxHealth{ 100.f };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal")
-    bool IsAutoHeal;
+    bool IsAutoHeal{ false };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal", Meta = (EditCondition = "IsAutoHeal", ClampMin = 0.0f, ClampMax = 120.0f))
-    float AutoHealDelay;
+    float AutoHealDelay{ 3.f };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal", Meta = (EditCondition = "IsAutoHeal", ClampMin = 0.0f, ClampMax = 100.0f))
-    float AutoHealTime;
+    float AutoHealTime{ 1.f };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health|Auto Heal", Meta = (EditCondition = "IsAutoHeal", ClampMin = 0.0f, ClampMax = 100.0f))
-    float AutoHealHealth;
+    float AutoHealHealth{ 1.f };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage")
-    FVector2D LandedDamageVelocity;
+    FVector2D LandedDamageVelocity{ 900.f, 1200.f };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage")
-    FVector2D LandedDamage;
+    FVector2D LandedDamage{ 10.f, 100.f };
 
-    FTimerHandle AutoHealTimerHandle;
+    FTimerHandle AutoHealTimerHandle{ 0.0f };
 
 private:
     float Health;

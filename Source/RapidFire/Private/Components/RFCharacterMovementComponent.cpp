@@ -4,8 +4,7 @@
 #include "Player/RFBaseCharacter.h"
 
 URFCharacterMovementComponent::URFCharacterMovementComponent(FObjectInitializer const& ObjectInitializer)
-    : Super(ObjectInitializer)
-    , RunSpeedModifier(1.5f) {}
+    : Super(ObjectInitializer) {}
 
 float URFCharacterMovementComponent::GetMaxSpeed() const
 {

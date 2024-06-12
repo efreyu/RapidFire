@@ -57,27 +57,27 @@ private:
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    UCameraComponent* CameraComponent;
+    UCameraComponent* CameraComponent{ nullptr };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    USpringArmComponent* SpringArmComponent;
+    USpringArmComponent* SpringArmComponent{ nullptr };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    URFHealthComponent* HealthComponent;
+    URFHealthComponent* HealthComponent{ nullptr };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    UTextRenderComponent* TextRenderComponent;
+    UTextRenderComponent* TextRenderComponent{ nullptr };
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-    URFWeaponComponent* WeaponComponent;
+    URFWeaponComponent* WeaponComponent{ nullptr };
 
     UPROPERTY(EditDefaultsOnly, Category = "Animation")
-    UAnimMontage* DeathAnimMontage;
+    UAnimMontage* DeathAnimMontage{ nullptr };
 
     UPROPERTY(BlueprintAssignable, Category = "Events")
     FOnJumpStartedSignature OnJumpStarted;
 
 private:
-    bool bIsGoingToSprint;
-    bool bIsMovingForward;
+    bool bIsGoingToSprint{ false };
+    bool bIsMovingForward{ false };
 };

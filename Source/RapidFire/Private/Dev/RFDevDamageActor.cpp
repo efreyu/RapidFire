@@ -5,11 +5,6 @@
 #include "Kismet/GameplayStatics.h"
 
 ARFDevDamageActor::ARFDevDamageActor()
-    : SceneComponent(nullptr)
-    , Radius(300.0f)
-    , Color(FColor::Red)
-    , Damage(10.f)
-    , DoFullDamage(false)
 {
     PrimaryActorTick.bCanEverTick = true;
     SceneComponent = CreateDefaultSubobject<USceneComponent>("SceneComponent");
