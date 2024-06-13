@@ -4,17 +4,17 @@
 
 #include "Animation/AnimNotifies/AnimNotify.h"
 #include "CoreMinimal.h"
-#include "RFEquipFinishedAnimNotify.generated.h"
+#include "RFReloadFinishedAnimNotify.generated.h"
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnEquipFinishedNotifySignature, USkeletalMeshComponent*);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnReloadFinishedNotifySignature, USkeletalMeshComponent*);
 
 UCLASS()
-class RAPIDFIRE_API URFEquipFinishedAnimNotify : public UAnimNotify
+class RAPIDFIRE_API URFReloadFinishedAnimNotify : public UAnimNotify
 {
     GENERATED_BODY()
 
 public:
     void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, FAnimNotifyEventReference const& EventReference) override;
 
-    FOnEquipFinishedNotifySignature OnNotified;
+    FOnReloadFinishedNotifySignature OnNotified;
 };
