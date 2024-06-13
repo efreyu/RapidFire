@@ -92,6 +92,11 @@ FVector ARFBaseWeapon::GetMuzzleLocation() const
     return SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName).GetLocation();
 }
 
+void ARFBaseWeapon::ReloadClip()
+{
+    CurrentAmmo.Reload();
+}
+
 bool FWeaponAmmoData::IsEmpty() const
 {
     if (bIsInfinity)

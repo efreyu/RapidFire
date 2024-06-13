@@ -32,6 +32,7 @@ public:
     void StartFire();
     void StopFire();
     void SetNextWeapon();
+    void ReloadClip();
 
 protected:
     virtual void BeginPlay() override;

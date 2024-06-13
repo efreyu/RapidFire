@@ -92,7 +92,8 @@ void ARFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
     PlayerInputComponent->AddActionBinding(SprintReleasedBinding);
     PlayerInputComponent->BindAction(RapidFire::Input::FireAction, IE_Pressed, WeaponComponent, &URFWeaponComponent::StartFire);
     PlayerInputComponent->BindAction(RapidFire::Input::FireAction, IE_Released, WeaponComponent, &URFWeaponComponent::StopFire);
-    PlayerInputComponent->BindAction(RapidFire::Input::NextWeapon, IE_Pressed, WeaponComponent, &URFWeaponComponent::SetNextWeapon);
+    PlayerInputComponent->BindAction(RapidFire::Input::NextWeaponAction, IE_Pressed, WeaponComponent, &URFWeaponComponent::SetNextWeapon);
+    PlayerInputComponent->BindAction(RapidFire::Input::ReloadAction, IE_Pressed, WeaponComponent, &URFWeaponComponent::ReloadClip);
 }
 
 void ARFBaseCharacter::OnMoveForwardAxis(float Amount)

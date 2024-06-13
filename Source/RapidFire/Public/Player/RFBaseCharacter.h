@@ -23,7 +23,8 @@ namespace RapidFire::inline Constants
         constexpr inline auto JumpAction{ TEXT("Jump") };
         constexpr inline auto SprintAction{ TEXT("Sprint") };
         constexpr inline auto FireAction{ TEXT("Fire") };
-        constexpr inline auto NextWeapon{ TEXT("NextWeapon") };
+        constexpr inline auto NextWeaponAction{ TEXT("NextWeapon") };
+        constexpr inline auto ReloadAction{ TEXT("Reload") };
     } // namespace Input
 } // namespace RapidFire::inline Constants
 

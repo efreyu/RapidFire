@@ -57,6 +57,7 @@ public:
     virtual void StartFire();
     virtual void StopFire();
     virtual bool CanFire() const;
+    virtual void ReloadClip();
 
 protected:
     virtual void BeginPlay() override;

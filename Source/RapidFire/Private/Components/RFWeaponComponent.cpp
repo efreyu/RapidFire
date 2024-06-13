@@ -159,3 +159,9 @@ bool URFWeaponComponent::CanEquip() const
 {
     return !bIsEquipAnimPlaying;
 }
+
+void URFWeaponComponent::ReloadClip()
+{
+    if (CurrentWeapon)
+        CurrentWeapon->ReloadClip();
+}
