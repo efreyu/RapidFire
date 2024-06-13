@@ -12,13 +12,13 @@ ARFBaseWeapon::ARFBaseWeapon()
     SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent");
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(SkeletalMeshComponent);
+    CurrentAmmo = BaseWeaponAmmoData;
 }
 
 void ARFBaseWeapon::BeginPlay()
 {
     Super::BeginPlay();
     check(SkeletalMeshComponent)
-    CurrentAmmo = BaseWeaponAmmoData;
     CurrentAmmo.Reload(true);
 }
 
@@ -96,7 +96,7 @@ bool FWeaponAmmoData::IsEmpty() const
 {
     if (bIsInfinity)
         return false;
-    return TotalAmmo == 0 || IsClipEmpty();
+    return TotalAmmo == 0 && IsClipEmpty();
 }
 
 bool FWeaponAmmoData::IsClipEmpty() const
@@ -106,7 +106,7 @@ bool FWeaponAmmoData::IsClipEmpty() const
     return ClipAmmo - ShotCost < 0;
 }
 
-bool FWeaponAmmoData::Reload(bool bNoAnim)
+bool FWeaponAmmoData::Reload(bool bSkipAnim)
 {
     // todo add reload time and animation event
     LogAmmo();
