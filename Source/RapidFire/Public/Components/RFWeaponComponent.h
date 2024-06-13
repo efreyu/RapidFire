@@ -42,9 +42,10 @@ private:
     void SpawnWeapons();
     void AttachWeaponToSocket(ARFBaseWeapon* Weapon, FName const& WeaponSocketName);
     void EquipWeapon(int32 Index);
-    void PlayAnimMontage(UAnimMontage* AnimMontage);
+    bool PlayAnimMontage(UAnimMontage* AnimMontage) const;
     void InitAnimations();
     void OnEquipFinished(USkeletalMeshComponent* MeshComp);
+    void OnReloadFinished(USkeletalMeshComponent* MeshComp);
     bool CanFire() const;
     bool CanEquip() const;
 
@@ -61,6 +62,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Animation")
     UAnimMontage* EquipAnimMontage{ nullptr };
 
+    UPROPERTY(EditDefaultsOnly, Category = "Animation")
+    UAnimMontage* ReloadAnimMontage{ nullptr };
+
 private:
     UPROPERTY()
     ARFBaseWeapon* CurrentWeapon{ nullptr };
@@ -71,4 +75,5 @@ private:
     TArray<ARFBaseWeapon*> Weapons;
 
     bool bIsEquipAnimPlaying{ false };
+    bool bIsReloadAnimPlaying{ false };
 };

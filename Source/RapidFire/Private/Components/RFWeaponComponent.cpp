@@ -3,6 +3,7 @@
 #include "Components/RFWeaponComponent.h"
 
 #include "Animations/RFEquipFinishedAnimNotify.h"
+#include "Animations/RFReloadFinishedAnimNotify.h"
 #include "GameFramework/Character.h"
 #include "RFBaseCharacter.h"
 #include "Weapons/RFBaseWeapon.h"
@@ -92,30 +93,42 @@ void URFWeaponComponent::EquipWeapon(int32 Index)
     }
     if (EquipAnimMontage)
     {
-        PlayAnimMontage(EquipAnimMontage);
+        if (PlayAnimMontage(EquipAnimMontage))
+            bIsEquipAnimPlaying = true;
     }
 }
 
-void URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage)
+bool URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage) const
 {
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character)
-        return;
-    bIsEquipAnimPlaying = true;
+        return false;
     Character->PlayAnimMontage(AnimMontage);
+    return true;
 }
 
 void URFWeaponComponent::InitAnimations()
 {
-    if (!EquipAnimMontage)
-        return;
-    auto const EquipFinishedNotify = Cast<URFEquipFinishedAnimNotify>(EquipAnimMontage->Notifies[0].Notify);
-    for (auto const NotifyEvent : EquipAnimMontage->Notifies)
+    if (EquipAnimMontage)
     {
-        if (auto EquipFinishNotify = Cast<URFEquipFinishedAnimNotify>(NotifyEvent.Notify))
+        for (auto const NotifyEvent : EquipAnimMontage->Notifies)
         {
-            EquipFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnEquipFinished);
-            break;
+            if (auto EquipFinishNotify = Cast<URFEquipFinishedAnimNotify>(NotifyEvent.Notify))
+            {
+                EquipFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnEquipFinished);
+                break;
+            }
+        }
+    }
+    if (ReloadAnimMontage)
+    {
+        for (auto const NotifyEvent : ReloadAnimMontage->Notifies)
+        {
+            if (auto ReloadFinishNotify = Cast<URFReloadFinishedAnimNotify>(NotifyEvent.Notify))
+            {
+                ReloadFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnReloadFinished);
+                break;
+            }
         }
     }
 }
@@ -126,6 +139,14 @@ void URFWeaponComponent::OnEquipFinished(USkeletalMeshComponent* MeshComp)
     if (!Character || MeshComp != Character->GetMesh())
         return;
     bIsEquipAnimPlaying = false;
+}
+
+void URFWeaponComponent::OnReloadFinished(USkeletalMeshComponent* MeshComp)
+{
+    auto const Character = Cast<ACharacter>(GetOwner());
+    if (!Character || MeshComp != Character->GetMesh())
+        return;
+    bIsReloadAnimPlaying = false;
 }
 
 void URFWeaponComponent::StartFire()
@@ -152,7 +173,7 @@ void URFWeaponComponent::SetNextWeapon()
 
 bool URFWeaponComponent::CanFire() const
 {
-    return CurrentWeapon && !bIsEquipAnimPlaying && CurrentWeapon->CanFire();
+    return CurrentWeapon && !bIsEquipAnimPlaying && !bIsReloadAnimPlaying && CurrentWeapon->CanFire();
 }
 
 bool URFWeaponComponent::CanEquip() const
@@ -162,6 +183,9 @@ bool URFWeaponComponent::CanEquip() const
 
 void URFWeaponComponent::ReloadClip()
 {
-    if (CurrentWeapon)
-        CurrentWeapon->ReloadClip();
+    if (CurrentWeapon && CurrentWeapon->CanReload() && ReloadAnimMontage)
+    {
+        if (PlayAnimMontage(ReloadAnimMontage))
+            bIsReloadAnimPlaying = true;
+    }
 }

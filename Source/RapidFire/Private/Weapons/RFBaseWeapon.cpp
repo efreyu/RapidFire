@@ -92,6 +92,11 @@ FVector ARFBaseWeapon::GetMuzzleLocation() const
     return SkeletalMeshComponent->GetSocketTransform(MuzzleSocketName).GetLocation();
 }
 
+bool ARFBaseWeapon::CanReload() const
+{
+    return CurrentAmmo.CanReload();
+}
+
 void ARFBaseWeapon::ReloadClip()
 {
     CurrentAmmo.Reload();
@@ -140,6 +145,11 @@ bool FWeaponAmmoData::MakeShot()
         return true;
     }
     return false;
+}
+
+bool FWeaponAmmoData::CanReload() const
+{
+    return ClipAmmo < ReloadClipMax && TotalAmmo > 0;
 }
 
 void FWeaponAmmoData::LogAmmo()

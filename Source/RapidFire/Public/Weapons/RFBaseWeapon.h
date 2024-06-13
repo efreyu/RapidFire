@@ -25,6 +25,7 @@ struct FWeaponAmmoData
     bool Reload(bool bSkipAnim = false);
     bool CanShot() const;
     bool MakeShot();
+    bool CanReload() const;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
     int32 TotalAmmo{ 55 };
@@ -34,9 +35,6 @@ struct FWeaponAmmoData
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
     int32 ReloadClipMax{ 15 };
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
-    float ReloadTime{ 1.f };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
     bool bIsInfinity{ false };
@@ -57,6 +55,7 @@ public:
     virtual void StartFire();
     virtual void StopFire();
     virtual bool CanFire() const;
+    virtual bool CanReload() const;
     virtual void ReloadClip();
 
 protected:
