@@ -114,7 +114,7 @@ bool FWeaponAmmoData::IsClipEmpty() const
 bool FWeaponAmmoData::Reload(bool bSkipAnim)
 {
     // todo add reload time and animation event
-    LogAmmo();
+    UE_LOG(LogTemp, Warning, TEXT("Reload"));
     if (IsEmpty())
         return false;
     TotalAmmo += ClipAmmo;
@@ -122,6 +122,7 @@ bool FWeaponAmmoData::Reload(bool bSkipAnim)
     auto const Amount = FMath::Min(TotalAmmo, ReloadClipMax);
     ClipAmmo = Amount;
     TotalAmmo -= Amount;
+    LogAmmo();
     return true;
 }
 
