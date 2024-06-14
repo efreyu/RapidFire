@@ -120,9 +120,9 @@ void URFWeaponComponent::InitAnimations()
             }
         }
     }
-    if (ReloadAnimMontage)
+    if (CurrentWeapon->GetReloadAnimMontage())
     {
-        for (auto const NotifyEvent : ReloadAnimMontage->Notifies)
+        for (auto const NotifyEvent : CurrentWeapon->GetReloadAnimMontage()->Notifies)
         {
             if (auto ReloadFinishNotify = Cast<URFReloadFinishedAnimNotify>(NotifyEvent.Notify))
             {
@@ -183,9 +183,9 @@ bool URFWeaponComponent::CanEquip() const
 
 void URFWeaponComponent::ReloadClip()
 {
-    if (CurrentWeapon && CurrentWeapon->CanReload() && ReloadAnimMontage)
+    if (CurrentWeapon && CurrentWeapon->CanReload() && CurrentWeapon->GetReloadAnimMontage())
     {
-        if (PlayAnimMontage(ReloadAnimMontage))
+        if (PlayAnimMontage(CurrentWeapon->GetReloadAnimMontage()))
             bIsReloadAnimPlaying = true;
     }
 }
