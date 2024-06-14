@@ -62,9 +62,6 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Animation")
     UAnimMontage* EquipAnimMontage{ nullptr };
 
-    UPROPERTY(EditDefaultsOnly, Category = "Animation")
-    UAnimMontage* ReloadAnimMontage{ nullptr };
-
 private:
     UPROPERTY()
     ARFBaseWeapon* CurrentWeapon{ nullptr };

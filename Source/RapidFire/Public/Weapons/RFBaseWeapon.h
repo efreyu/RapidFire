@@ -39,6 +39,9 @@ struct FWeaponAmmoData
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
     bool bIsInfinity{ false };
 
+    UPROPERTY(EditDefaultsOnly, Category = "Ammo|Animation")
+    UAnimMontage* ReloadAnimMontage{ nullptr };
+
 private:
     void LogAmmo();
 
@@ -57,6 +60,7 @@ public:
     virtual bool CanFire() const;
     virtual bool CanReload() const;
     virtual void ReloadClip();
+    virtual UAnimMontage* GetReloadAnimMontage() const;
 
 protected:
     virtual void BeginPlay() override;
