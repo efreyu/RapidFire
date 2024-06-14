@@ -20,9 +20,10 @@ void URFWeaponComponent::BeginPlay()
     Super::BeginPlay();
     check(WeaponClasses.Num() > 0)
     check(Weapons.Num() == 0)
-    InitAnimations();
     SpawnWeapons();
     EquipWeapon(CurrentWeaponIndex);
+
+    InitAnimations();
 }
 
 void URFWeaponComponent::EndPlay(EEndPlayReason::Type const EndPlayReason)
@@ -120,7 +121,7 @@ void URFWeaponComponent::InitAnimations()
             }
         }
     }
-    if (CurrentWeapon->GetReloadAnimMontage())
+    if (CurrentWeapon && CurrentWeapon->GetReloadAnimMontage())
     {
         for (auto const NotifyEvent : CurrentWeapon->GetReloadAnimMontage()->Notifies)
         {
