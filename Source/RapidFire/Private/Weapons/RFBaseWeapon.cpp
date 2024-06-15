@@ -19,7 +19,7 @@ void ARFBaseWeapon::BeginPlay()
     Super::BeginPlay();
     check(SkeletalMeshComponent)
     CurrentAmmo = BaseWeaponAmmoData;
-    CurrentAmmo.Reload(true);
+    CurrentAmmo.Reload();
 }
 
 void ARFBaseWeapon::StartFire()
@@ -121,9 +121,8 @@ bool FWeaponAmmoData::IsClipEmpty() const
     return ClipAmmo - ShotCost < 0;
 }
 
-bool FWeaponAmmoData::Reload(bool bSkipAnim)
+bool FWeaponAmmoData::Reload()
 {
-    // todo add reload time and animation event
     UE_LOG(LogTemp, Warning, TEXT("Reload"));
     if (IsEmpty())
         return false;

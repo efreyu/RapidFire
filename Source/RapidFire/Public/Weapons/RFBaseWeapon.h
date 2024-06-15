@@ -22,7 +22,7 @@ struct FWeaponAmmoData
 
     bool IsEmpty() const;
     bool IsClipEmpty() const;
-    bool Reload(bool bSkipAnim = false);
+    bool Reload();
     bool CanShot() const;
     bool MakeShot();
     bool CanReload() const;

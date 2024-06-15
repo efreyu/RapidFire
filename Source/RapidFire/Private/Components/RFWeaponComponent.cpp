@@ -145,8 +145,9 @@ void URFWeaponComponent::OnEquipFinished(USkeletalMeshComponent* MeshComp)
 void URFWeaponComponent::OnReloadFinished(USkeletalMeshComponent* MeshComp)
 {
     auto const Character = Cast<ACharacter>(GetOwner());
-    if (!Character || MeshComp != Character->GetMesh())
+    if (!Character || !CurrentWeapon || MeshComp != Character->GetMesh())
         return;
+    CurrentWeapon->ReloadClip();
     bIsReloadAnimPlaying = false;
 }
 
