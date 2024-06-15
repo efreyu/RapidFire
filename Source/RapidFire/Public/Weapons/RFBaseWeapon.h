@@ -82,7 +82,7 @@ protected:
     float ShootDirectionRange{ 10000.f };
 
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-    FWeaponAmmoData BaseWeaponAmmoData{};
+    FWeaponAmmoData BaseWeaponAmmoData;
 
     FWeaponAmmoData CurrentAmmo;
 };

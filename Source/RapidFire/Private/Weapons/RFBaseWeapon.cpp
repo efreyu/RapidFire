@@ -12,13 +12,13 @@ ARFBaseWeapon::ARFBaseWeapon()
     SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMeshComponent");
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(SkeletalMeshComponent);
-    CurrentAmmo = BaseWeaponAmmoData;
 }
 
 void ARFBaseWeapon::BeginPlay()
 {
     Super::BeginPlay();
     check(SkeletalMeshComponent)
+    CurrentAmmo = BaseWeaponAmmoData;
     CurrentAmmo.Reload(true);
 }
 
