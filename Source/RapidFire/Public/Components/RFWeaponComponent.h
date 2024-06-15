@@ -71,6 +71,5 @@ private:
     UPROPERTY()
     TArray<ARFBaseWeapon*> Weapons;
 
-    bool bIsEquipAnimPlaying{ false };
-    bool bIsReloadAnimPlaying{ false };
+    bool bIsWeaponAnimPlaying{ false };
 };

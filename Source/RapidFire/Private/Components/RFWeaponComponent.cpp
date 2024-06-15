@@ -2,8 +2,10 @@
 
 #include "Components/RFWeaponComponent.h"
 
+#include "Animation/AnimMontage.h"
 #include "Animations/RFEquipFinishedAnimNotify.h"
 #include "Animations/RFReloadFinishedAnimNotify.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
 #include "RFBaseCharacter.h"
 #include "Weapons/RFBaseWeapon.h"
@@ -95,7 +97,7 @@ void URFWeaponComponent::EquipWeapon(int32 Index)
     if (EquipAnimMontage)
     {
         if (PlayAnimMontage(EquipAnimMontage))
-            bIsEquipAnimPlaying = true;
+            bIsWeaponAnimPlaying = true;
     }
 }
 
@@ -139,7 +141,7 @@ void URFWeaponComponent::OnEquipFinished(USkeletalMeshComponent* MeshComp)
     auto const Character = Cast<ACharacter>(GetOwner());
     if (!Character || MeshComp != Character->GetMesh())
         return;
-    bIsEquipAnimPlaying = false;
+    bIsWeaponAnimPlaying = false;
 }
 
 void URFWeaponComponent::OnReloadFinished(USkeletalMeshComponent* MeshComp)
@@ -148,7 +150,7 @@ void URFWeaponComponent::OnReloadFinished(USkeletalMeshComponent* MeshComp)
     if (!Character || !CurrentWeapon || MeshComp != Character->GetMesh())
         return;
     CurrentWeapon->ReloadClip();
-    bIsReloadAnimPlaying = false;
+    bIsWeaponAnimPlaying = false;
 }
 
 void URFWeaponComponent::StartFire()
@@ -175,12 +177,12 @@ void URFWeaponComponent::SetNextWeapon()
 
 bool URFWeaponComponent::CanFire() const
 {
-    return CurrentWeapon && !bIsEquipAnimPlaying && !bIsReloadAnimPlaying && CurrentWeapon->CanFire();
+    return CurrentWeapon && !bIsWeaponAnimPlaying && CurrentWeapon->CanFire();
 }
 
 bool URFWeaponComponent::CanEquip() const
 {
-    return !bIsEquipAnimPlaying;
+    return !bIsWeaponAnimPlaying;
 }
 
 void URFWeaponComponent::ReloadClip()
@@ -188,6 +190,6 @@ void URFWeaponComponent::ReloadClip()
     if (CurrentWeapon && CurrentWeapon->CanReload() && CurrentWeapon->GetReloadAnimMontage())
     {
         if (PlayAnimMontage(CurrentWeapon->GetReloadAnimMontage()))
-            bIsReloadAnimPlaying = true;
+            bIsWeaponAnimPlaying = true;
     }
 }
