@@ -60,7 +60,7 @@ public:
     virtual bool CanFire() const;
     virtual bool CanReload() const;
     virtual void ReloadClip();
-    virtual UAnimMontage* GetReloadAnimMontage() const;
+    virtual UAnimMontage* GetCurrentReloadAnimMontage() const;
 
 protected:
     virtual void BeginPlay() override;

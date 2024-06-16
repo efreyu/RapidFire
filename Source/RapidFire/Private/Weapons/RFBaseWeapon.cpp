@@ -102,7 +102,7 @@ void ARFBaseWeapon::ReloadClip()
     CurrentAmmo.Reload();
 }
 
-UAnimMontage* ARFBaseWeapon::GetReloadAnimMontage() const
+UAnimMontage* ARFBaseWeapon::GetCurrentReloadAnimMontage() const
 {
     return CurrentAmmo.ReloadAnimMontage;
 }
