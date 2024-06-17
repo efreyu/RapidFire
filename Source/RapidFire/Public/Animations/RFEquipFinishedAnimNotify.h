@@ -6,15 +6,8 @@
 #include "CoreMinimal.h"
 #include "RFEquipFinishedAnimNotify.generated.h"
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnEquipFinishedNotifySignature, USkeletalMeshComponent*);
-
 UCLASS()
 class RAPIDFIRE_API URFEquipFinishedAnimNotify : public UAnimNotify
 {
     GENERATED_BODY()
-
-public:
-    void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, FAnimNotifyEventReference const& EventReference) override;
-
-    FOnEquipFinishedNotifySignature OnNotified;
 };
