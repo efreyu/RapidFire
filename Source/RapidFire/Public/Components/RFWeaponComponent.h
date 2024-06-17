@@ -49,6 +49,21 @@ private:
     bool CanFire() const;
     bool CanEquip() const;
 
+    template <typename T>
+    T* FindNotifyByClass(UAnimSequenceBase* AnimationBase) const
+    {
+        if (!AnimationBase)
+            return nullptr;
+        for (auto const NotifyEvent : AnimationBase->Notifies)
+        {
+            if (auto EquipFinishNotify = Cast<T>(NotifyEvent.Notify))
+            {
+                return EquipFinishNotify;
+            }
+        }
+        return nullptr;
+    }
+
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     TArray<TSubclassOf<ARFBaseWeapon>> WeaponClasses{ {} };

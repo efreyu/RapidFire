@@ -4,10 +4,11 @@
 
 #include "Animation/AnimNotifies/AnimNotify.h"
 #include "CoreMinimal.h"
+#include "RFAnimNotifyBase.h"
 #include "RFReloadFinishedAnimNotify.generated.h"
 
 UCLASS()
-class RAPIDFIRE_API URFReloadFinishedAnimNotify : public UAnimNotify
+class RAPIDFIRE_API URFReloadFinishedAnimNotify : public URFAnimNotifyBase
 {
     GENERATED_BODY()
 };

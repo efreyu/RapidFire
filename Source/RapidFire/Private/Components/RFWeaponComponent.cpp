@@ -112,29 +112,17 @@ bool URFWeaponComponent::PlayAnimMontage(UAnimMontage* AnimMontage) const
 
 void URFWeaponComponent::InitAnimations()
 {
-    if (EquipAnimMontage)
+    if (auto const EquipFinishNotify = FindNotifyByClass<URFEquipFinishedAnimNotify>(EquipAnimMontage))
     {
-        for (auto const NotifyEvent : EquipAnimMontage->Notifies)
-        {
-            if (auto EquipFinishNotify = Cast<URFEquipFinishedAnimNotify>(NotifyEvent.Notify))
-            {
-                EquipFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnEquipFinished);
-                break;
-            }
-        }
+        EquipFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnEquipFinished);
     }
     for (auto const Weapon : Weapons)
     {
-        if (Weapon && Weapon->GetCurrentReloadAnimMontage())
+        if (!Weapon || !Weapon->GetCurrentReloadAnimMontage())
+            continue;
+        if (auto const ReloadFinishNotify = FindNotifyByClass<URFReloadFinishedAnimNotify>(Weapon->GetCurrentReloadAnimMontage()))
         {
-            for (auto const NotifyEvent : Weapon->GetCurrentReloadAnimMontage()->Notifies)
-            {
-                if (auto ReloadFinishNotify = Cast<URFReloadFinishedAnimNotify>(NotifyEvent.Notify))
-                {
-                    ReloadFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnReloadFinished);
-                    break;
-                }
-            }
+            ReloadFinishNotify->OnNotified.AddUObject(this, &URFWeaponComponent::OnReloadFinished);
         }
     }
 }
