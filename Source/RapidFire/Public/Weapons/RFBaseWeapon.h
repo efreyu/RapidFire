@@ -10,6 +10,8 @@ class USkeletalMeshComponent;
 class APlayerController;
 struct FHitResult;
 
+DECLARE_MULTICAST_DELEGATE(FOnClipEmptySignature);
+
 namespace RapidFire::inline Constants::Socket
 {
     constexpr inline auto MuzzleSocket{ TEXT("MuzzleSocket") };
@@ -61,6 +63,8 @@ public:
     virtual bool CanReload() const;
     virtual void ReloadClip();
     virtual UAnimMontage* GetCurrentReloadAnimMontage() const;
+
+    FOnClipEmptySignature OnClipEmpty;
 
 protected:
     virtual void BeginPlay() override;

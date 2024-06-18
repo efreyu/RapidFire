@@ -12,6 +12,8 @@ void ARFLauncherWeapon::StartFire()
 {
     if (CurrentAmmo.CanShot())
         MakeShot();
+    else
+        OnClipEmpty.Broadcast();
 }
 
 void ARFLauncherWeapon::StopFire()

@@ -118,6 +118,10 @@ void URFWeaponComponent::InitAnimations()
     }
     for (auto const Weapon : Weapons)
     {
+        if (Weapon)
+        {
+            Weapon->OnClipEmpty.AddUObject(this, &URFWeaponComponent::ReloadClip);
+        }
         if (!Weapon || !Weapon->GetCurrentReloadAnimMontage())
             continue;
         if (auto const ReloadFinishNotify = FindNotifyByClass<URFReloadFinishedAnimNotify>(Weapon->GetCurrentReloadAnimMontage()))
