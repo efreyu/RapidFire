@@ -14,6 +14,7 @@ URFHealthComponent::URFHealthComponent()
 void URFHealthComponent::BeginPlay()
 {
     Super::BeginPlay();
+    checkf(MaxHealth > 0.0f, TEXT("MaxHealth must be greater than 0"));
     SetHealth(MaxHealth);
     if (auto const Owner = GetOwner())
     {
