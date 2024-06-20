@@ -2,12 +2,25 @@
 
 #include "UI/RFGameHUD.h"
 
+#include "Blueprint/UserWidget.h"
 #include "Engine/Canvas.h"
+#include "UI/RFPlayerHUDWidget.h"
 
 void ARFGameHUD::DrawHUD()
 {
     Super::DrawHUD();
     DrawCrosshair();
+}
+
+void ARFGameHUD::BeginPlay()
+{
+    Super::BeginPlay();
+    check(PlayerHudWidgetClass);
+    auto PlayerHUDWidget = CreateWidget<URFPlayerHUDWidget>(GetWorld(), PlayerHudWidgetClass);
+    if (PlayerHUDWidget)
+    {
+        PlayerHUDWidget->AddToViewport();
+    }
 }
 
 void ARFGameHUD::DrawCrosshair()
