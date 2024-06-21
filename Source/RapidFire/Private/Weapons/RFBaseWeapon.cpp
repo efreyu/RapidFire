@@ -106,3 +106,13 @@ UAnimMontage* ARFBaseWeapon::GetCurrentReloadAnimMontage() const
 {
     return CurrentAmmo.ReloadAnimMontage;
 }
+
+FWeaponAmmoData const& ARFBaseWeapon::GetAmmoData() const
+{
+    return CurrentAmmo;
+}
+
+FWeaponUIData const& ARFBaseWeapon::GetUIData() const
+{
+    return UIData;
+}

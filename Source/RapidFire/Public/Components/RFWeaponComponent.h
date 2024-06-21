@@ -7,6 +7,8 @@
 #include "RFWeaponComponent.generated.h"
 
 class ARFBaseWeapon;
+struct FWeaponAmmoData;
+struct FWeaponUIData;
 
 namespace RapidFire::inline Constants
 {
@@ -33,6 +35,8 @@ public:
     void StopFire();
     void SetNextWeapon();
     void ReloadClip();
+    bool GetAmmoData(FWeaponAmmoData& Data) const;
+    bool GetUIData(FWeaponUIData& Data) const;
 
 protected:
     virtual void BeginPlay() override;

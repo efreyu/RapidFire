@@ -22,6 +22,6 @@ protected:
 
     virtual void BeginPlay() override;
 
-private:
-    void DrawCrosshair();
+    // private:
+    // void DrawCrosshair();
 };

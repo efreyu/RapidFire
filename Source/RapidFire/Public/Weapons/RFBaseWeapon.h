@@ -31,6 +31,8 @@ public:
     virtual bool CanReload() const;
     virtual void ReloadClip();
     virtual UAnimMontage* GetCurrentReloadAnimMontage() const;
+    virtual FWeaponAmmoData const& GetAmmoData() const;
+    virtual FWeaponUIData const& GetUIData() const;
 
     FOnClipEmptySignature OnClipEmpty;
 

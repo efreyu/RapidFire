@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "RFBaseCharacter.h"
 #include "Weapons/RFBaseWeapon.h"
+#include "Weapons/RFBaseWeaponData.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogWeaponComponent, All, All);
 
@@ -187,4 +188,23 @@ void URFWeaponComponent::ReloadClip()
         if (PlayAnimMontage(CurrentWeapon->GetCurrentReloadAnimMontage()))
             bIsWeaponAnimPlaying = true;
     }
+}
+
+bool URFWeaponComponent::GetAmmoData(FWeaponAmmoData& Data) const
+{
+    if (CurrentWeapon)
+    {
+        Data = CurrentWeapon->GetAmmoData();
+        return true;
+    }
+    return false;
+}
+bool URFWeaponComponent::GetUIData(FWeaponUIData& Data) const
+{
+    if (CurrentWeapon)
+    {
+        Data = CurrentWeapon->GetUIData();
+        return true;
+    }
+    return false;
 }

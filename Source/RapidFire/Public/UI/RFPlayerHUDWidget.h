@@ -6,9 +6,10 @@
 #include "CoreMinimal.h"
 #include "RFPlayerHUDWidget.generated.h"
 
-/**
- *
- */
+struct FWeaponAmmoData;
+struct FWeaponUIData;
+class URFWeaponComponent;
+
 UCLASS()
 class RAPIDFIRE_API URFPlayerHUDWidget : public UUserWidget
 {
@@ -18,4 +19,12 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     float GetHealthPercent() const;
 
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    bool GetAmmoData(FWeaponAmmoData& Data) const;
+
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    bool GetUIData(FWeaponUIData& Data) const;
+
+private:
+    URFWeaponComponent* GetWeaponComponent() const;
 };
