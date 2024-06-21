@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Weapons/RFBaseWeapon.h"
 #include "RFBaseWeapon.generated.h"
 
 class USkeletalMeshComponent;
@@ -89,4 +90,7 @@ protected:
     FWeaponAmmoData BaseWeaponAmmoData;
 
     FWeaponAmmoData CurrentAmmo;
+
+    UPROPERTY(EditDefaultsOnly, Category = "UI")
+    FWeaponUIData UIData;
 };
