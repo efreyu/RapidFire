@@ -3,13 +3,27 @@ import shutil
 import glob
 
 # Function to remove directories
-def remove_directory(directory):
+def remove_directory(directory, keep_folders=[]):
     if os.path.exists(directory):
         try:
-            shutil.rmtree(directory)
+            # Iterate through the directory contents
+            for item in os.listdir(directory):
+                item_path = os.path.join(directory, item)
+                # Skip the folders that need to be kept
+                if os.path.isdir(item_path) and item in keep_folders:
+                    print(f"Keeping directory: {item_path}")
+                    continue
+                # Remove the item (file or directory)
+                if os.path.isdir(item_path):
+                    shutil.rmtree(item_path)
+                else:
+                    os.remove(item_path)
+            # If the main directory is empty after removing items, remove it
+            if not os.listdir(directory):
+                os.rmdir(directory)
         except Exception as e:
             print(f"Failed to remove {directory}: {e}")
-        print(f"Removed directory: {directory}")
+        print(f"Processed directory: {directory}")
 
 # Function to remove files
 def remove_files(pattern):
@@ -33,7 +47,7 @@ def clean_project(project_dir):
     remove_directory(binaries_dir)
     remove_directory(derived_data_cache_dir)
     remove_directory(local_derived_data_cache_dir)
-    remove_directory(saved_dir)
+    remove_directory(saved_dir, keep_folders=['Config', 'UnrealBuildTool'])
     remove_files(solution_file)
 
 def remove_temp_files(directory, unused_files=None):
