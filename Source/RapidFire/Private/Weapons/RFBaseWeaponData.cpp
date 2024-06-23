@@ -32,7 +32,7 @@ bool FWeaponAmmoData::Reload()
 
 bool FWeaponAmmoData::CanShot() const
 {
-    return bIsInfinity || ClipAmmo - ShotCost >= 0;
+    return ClipAmmo - ShotCost >= 0;
 }
 
 bool FWeaponAmmoData::MakeShot()
