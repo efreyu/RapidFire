@@ -4,6 +4,7 @@
 #include "DrawDebugHelpers.h"
 #include "Engine/DamageEvents.h"
 #include "Engine/World.h"
+#include "TimerManager.h"
 
 ARFRifleWeapon::ARFRifleWeapon() {}
 

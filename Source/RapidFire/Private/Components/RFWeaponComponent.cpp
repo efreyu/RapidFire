@@ -151,7 +151,7 @@ void URFWeaponComponent::OnReloadFinished(USkeletalMeshComponent* MeshComp)
 
 void URFWeaponComponent::StartFire()
 {
-    if (!CurrentWeapon)
+    if (!CanFire())
         return;
     CurrentWeapon->StartFire();
 }
@@ -186,7 +186,10 @@ void URFWeaponComponent::ReloadClip()
     if (!bIsWeaponAnimPlaying && CurrentWeapon && CurrentWeapon->CanReload() && CurrentWeapon->GetCurrentReloadAnimMontage())
     {
         if (PlayAnimMontage(CurrentWeapon->GetCurrentReloadAnimMontage()))
+        {
+            CurrentWeapon->StopFire();
             bIsWeaponAnimPlaying = true;
+        }
     }
 }
 
