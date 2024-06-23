@@ -3,6 +3,7 @@
 #include "UI/RFPlayerHUDWidget.h"
 #include "Components/RFHealthComponent.h"
 #include "Components/RFWeaponComponent.h"
+#include "GameFramework/Pawn.h"
 #include "Weapons/RFBaseWeaponData.h"
 
 float URFPlayerHUDWidget::GetHealthPercent() const
@@ -19,15 +20,6 @@ float URFPlayerHUDWidget::GetHealthPercent() const
     }
 
     return 0.f;
-}
-
-bool URFPlayerHUDWidget::GetAmmoData(FWeaponAmmoData& Data) const
-{
-    if (auto WeaponComponent = GetWeaponComponent())
-    {
-        return WeaponComponent->GetAmmoData(Data);
-    }
-    return false;
 }
 
 bool URFPlayerHUDWidget::GetUIData(FWeaponUIData& Data) const
@@ -50,4 +42,32 @@ URFWeaponComponent* URFPlayerHUDWidget::GetWeaponComponent() const
     }
 
     return nullptr;
+}
+
+bool URFPlayerHUDWidget::GetCurrentClipAmmo(int32& Ammo) const
+{
+    if (auto WeaponComponent = GetWeaponComponent())
+    {
+        FWeaponAmmoData Data;
+        if (WeaponComponent->GetAmmoData(Data))
+        {
+            Ammo = Data.GetCurrentClipAmmo();
+            return true;
+        }
+    }
+    return false;
+}
+
+bool URFPlayerHUDWidget::GetTotalAmmo(int32& Ammo) const
+{
+    if (auto WeaponComponent = GetWeaponComponent())
+    {
+        FWeaponAmmoData Data;
+        if (WeaponComponent->GetAmmoData(Data))
+        {
+            Ammo = Data.TotalAmmo;
+            return true;
+        }
+    }
+    return false;
 }

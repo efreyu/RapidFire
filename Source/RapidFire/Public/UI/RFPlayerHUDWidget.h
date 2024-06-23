@@ -20,7 +20,10 @@ public:
     float GetHealthPercent() const;
 
     UFUNCTION(BlueprintCallable, Category = "UI")
-    bool GetAmmoData(FWeaponAmmoData& Data) const;
+    bool GetCurrentClipAmmo(int32& Ammo) const;
+
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    bool GetTotalAmmo(int32& Ammo) const;
 
     UFUNCTION(BlueprintCallable, Category = "UI")
     bool GetUIData(FWeaponUIData& Data) const;

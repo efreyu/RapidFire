@@ -56,6 +56,11 @@ void FWeaponAmmoData::LogAmmo()
     UE_LOG(LogTemp, Warning, TEXT("TotalAmmo: '%d', ClipAmmo: '%d'"), TotalAmmo, ClipAmmo);
 }
 
+int32 FWeaponAmmoData::GetCurrentClipAmmo() const
+{
+    return ClipAmmo;
+}
+
 UTexture2D* FWeaponUIData::GetIconTex() const
 {
     return IconTex;

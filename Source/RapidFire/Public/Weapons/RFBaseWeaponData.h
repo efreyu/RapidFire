@@ -17,6 +17,8 @@ struct FWeaponAmmoData
     bool MakeShot();
     bool CanReload() const;
 
+    int32 GetCurrentClipAmmo() const;
+
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
     int32 TotalAmmo{ 55 };
 
