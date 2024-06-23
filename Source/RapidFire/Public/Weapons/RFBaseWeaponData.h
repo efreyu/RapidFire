@@ -22,10 +22,10 @@ struct FWeaponAmmoData
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
     int32 TotalAmmo{ 55 };
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
     int32 ShotCost{ 1 };
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo", Meta = (EditCondition = "!bIsInfinity"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")
     int32 ReloadClipMax{ 15 };
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Ammo")

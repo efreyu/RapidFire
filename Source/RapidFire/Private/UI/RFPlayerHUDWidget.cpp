@@ -46,28 +46,31 @@ URFWeaponComponent* URFPlayerHUDWidget::GetWeaponComponent() const
 
 bool URFPlayerHUDWidget::GetCurrentClipAmmo(int32& Ammo) const
 {
-    if (auto WeaponComponent = GetWeaponComponent())
+    FWeaponAmmoData Data;
+    if (GetAmmoData(Data))
     {
-        FWeaponAmmoData Data;
-        if (WeaponComponent->GetAmmoData(Data))
-        {
-            Ammo = Data.GetCurrentClipAmmo();
-            return true;
-        }
+        Ammo = Data.GetCurrentClipAmmo();
+        return true;
     }
     return false;
 }
 
 bool URFPlayerHUDWidget::GetTotalAmmo(int32& Ammo) const
 {
+    FWeaponAmmoData Data;
+    if (GetAmmoData(Data))
+    {
+        Ammo = Data.TotalAmmo;
+        return true;
+    }
+    return false;
+}
+
+bool URFPlayerHUDWidget::GetAmmoData(FWeaponAmmoData& Data) const
+{
     if (auto WeaponComponent = GetWeaponComponent())
     {
-        FWeaponAmmoData Data;
-        if (WeaponComponent->GetAmmoData(Data))
-        {
-            Ammo = Data.TotalAmmo;
-            return true;
-        }
+        return WeaponComponent->GetAmmoData(Data);
     }
     return false;
 }

@@ -28,6 +28,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     bool GetUIData(FWeaponUIData& Data) const;
 
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    bool GetAmmoData(FWeaponAmmoData& Data) const;
+
 private:
     URFWeaponComponent* GetWeaponComponent() const;
 };
