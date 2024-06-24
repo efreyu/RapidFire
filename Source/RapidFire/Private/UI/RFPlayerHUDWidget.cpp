@@ -8,15 +8,9 @@
 
 float URFPlayerHUDWidget::GetHealthPercent() const
 {
-    auto const Player = GetOwningPlayerPawn();
-    if (!Player)
-        return 0.f;
-    if (auto const HealthComponent = Player->GetComponentByClass<URFHealthComponent>())
+    if (auto const HealthComponent = GetHealthComponent())
     {
-        if (HealthComponent)
-        {
-            return HealthComponent->GetHealthPercent();
-        }
+        return HealthComponent->GetHealthPercent();
     }
 
     return 0.f;
@@ -73,4 +67,31 @@ bool URFPlayerHUDWidget::GetAmmoData(FWeaponAmmoData& Data) const
         return WeaponComponent->GetAmmoData(Data);
     }
     return false;
+}
+
+bool URFPlayerHUDWidget::IsPlayerAlive() const
+{
+    if (auto const HealthComponent = GetHealthComponent())
+    {
+        return HealthComponent->IsDead();
+    }
+    return false;
+}
+
+bool URFPlayerHUDWidget::IsPlayerSpectating() const
+{
+    auto const Controller = GetOwningPlayer();
+    return Controller && Controller->GetStateName() == NAME_Spectating;
+}
+
+URFHealthComponent* URFPlayerHUDWidget::GetHealthComponent() const
+{
+    auto const Player = GetOwningPlayerPawn();
+    if (!Player)
+        return nullptr;
+    if (auto const HealthComponent = Player->GetComponentByClass<URFHealthComponent>())
+    {
+        return HealthComponent;
+    }
+    return nullptr;
 }

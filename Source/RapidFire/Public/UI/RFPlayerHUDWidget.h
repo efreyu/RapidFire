@@ -9,6 +9,7 @@
 struct FWeaponAmmoData;
 struct FWeaponUIData;
 class URFWeaponComponent;
+class URFHealthComponent;
 
 UCLASS()
 class RAPIDFIRE_API URFPlayerHUDWidget : public UUserWidget
@@ -31,6 +32,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     bool GetAmmoData(FWeaponAmmoData& Data) const;
 
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    bool IsPlayerAlive() const;
+
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    bool IsPlayerSpectating() const;
+
 private:
     URFWeaponComponent* GetWeaponComponent() const;
+    URFHealthComponent* GetHealthComponent() const;
 };
