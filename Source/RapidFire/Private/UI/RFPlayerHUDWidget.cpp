@@ -73,7 +73,7 @@ bool URFPlayerHUDWidget::IsPlayerAlive() const
 {
     if (auto const HealthComponent = GetHealthComponent())
     {
-        return HealthComponent->IsDead();
+        return !HealthComponent->IsDead();
     }
     return false;
 }
