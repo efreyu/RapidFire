@@ -26,7 +26,6 @@ bool FWeaponAmmoData::Reload()
     auto const Amount = FMath::Min(TotalAmmo, ReloadClipMax);
     ClipAmmo = Amount;
     TotalAmmo -= Amount;
-    LogAmmo();
     return true;
 }
 
@@ -37,7 +36,6 @@ bool FWeaponAmmoData::CanShot() const
 
 bool FWeaponAmmoData::MakeShot()
 {
-    LogAmmo();
     if (CanShot())
     {
         ClipAmmo -= ShotCost;
@@ -49,11 +47,6 @@ bool FWeaponAmmoData::MakeShot()
 bool FWeaponAmmoData::CanReload() const
 {
     return ClipAmmo < ReloadClipMax && TotalAmmo > 0;
-}
-
-void FWeaponAmmoData::LogAmmo()
-{
-    UE_LOG(LogTemp, Warning, TEXT("TotalAmmo: '%d', ClipAmmo: '%d'"), TotalAmmo, ClipAmmo);
 }
 
 int32 FWeaponAmmoData::GetCurrentClipAmmo() const

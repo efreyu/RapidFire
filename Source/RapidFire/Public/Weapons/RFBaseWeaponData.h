@@ -35,8 +35,6 @@ struct FWeaponAmmoData
     UAnimMontage* ReloadAnimMontage{ nullptr };
 
 private:
-    void LogAmmo();
-
     int32 ClipAmmo{ 0 };
 };
 
