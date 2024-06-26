@@ -6,6 +6,8 @@
 #include "CoreMinimal.h"
 #include "RFWeaponFXComponent.generated.h"
 
+class UNiagaraSystem;
+
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RAPIDFIRE_API URFWeaponFXComponent : public UActorComponent
 {
@@ -14,9 +16,9 @@ class RAPIDFIRE_API URFWeaponFXComponent : public UActorComponent
 public:
     URFWeaponFXComponent();
 
-protected:
-    virtual void BeginPlay() override;
+    void PlayVFX(FHitResult const& HitData);
 
-public:
-    virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+protected:
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
+    UNiagaraSystem* Effect;
 };
