@@ -18,6 +18,7 @@ public class RapidFire : ModuleRules
             "RapidFire/Public/Components",
             "RapidFire/Public/Dev",
             "RapidFire/Public/Weapons",
+            "RapidFire/Public/Weapons/Components",
             "RapidFire/Public/UI",
             "RapidFire/Public/Animations"
         });
