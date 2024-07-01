@@ -24,12 +24,12 @@ void ARFBaseWeapon::BeginPlay()
 
 void ARFBaseWeapon::StartFire()
 {
-    checkNoEntry()
+    FireInProgress = true;
 }
 
 void ARFBaseWeapon::StopFire()
 {
-    checkNoEntry()
+    FireInProgress = false;
 }
 
 void ARFBaseWeapon::MakeShot()
@@ -115,4 +115,9 @@ FWeaponAmmoData const& ARFBaseWeapon::GetAmmoData() const
 FWeaponUIData const& ARFBaseWeapon::GetUIData() const
 {
     return UIData;
+}
+
+bool ARFBaseWeapon::IsFiring() const
+{
+    return FireInProgress;
 }

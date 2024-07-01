@@ -212,3 +212,8 @@ bool URFWeaponComponent::GetUIData(FWeaponUIData& Data) const
     }
     return false;
 }
+
+bool URFWeaponComponent::IsFiring() const
+{
+    return CurrentWeapon && CurrentWeapon->IsFiring();
+}

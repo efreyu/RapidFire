@@ -33,6 +33,7 @@ public:
     virtual UAnimMontage* GetCurrentReloadAnimMontage() const;
     virtual FWeaponAmmoData const& GetAmmoData() const;
     virtual FWeaponUIData const& GetUIData() const;
+    virtual bool IsFiring() const;
 
     FOnClipEmptySignature OnClipEmpty;
 
@@ -62,4 +63,7 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     FWeaponUIData UIData;
+
+private:
+    bool FireInProgress{ false };
 };

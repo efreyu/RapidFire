@@ -37,6 +37,7 @@ public:
     void ReloadClip();
     bool GetAmmoData(FWeaponAmmoData& Data) const;
     bool GetUIData(FWeaponUIData& Data) const;
+    bool IsFiring() const;
 
 protected:
     virtual void BeginPlay() override;
