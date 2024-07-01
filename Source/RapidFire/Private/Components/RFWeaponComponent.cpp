@@ -173,7 +173,7 @@ void URFWeaponComponent::SetNextWeapon()
 
 bool URFWeaponComponent::CanFire() const
 {
-    return CurrentWeapon && !bIsWeaponAnimPlaying && CurrentWeapon->CanFire();
+    return CurrentWeapon && !bIsWeaponAnimPlaying;
 }
 
 bool URFWeaponComponent::CanEquip() const
@@ -202,6 +202,7 @@ bool URFWeaponComponent::GetAmmoData(FWeaponAmmoData& Data) const
     }
     return false;
 }
+
 bool URFWeaponComponent::GetUIData(FWeaponUIData& Data) const
 {
     if (CurrentWeapon)
